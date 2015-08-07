@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		6C1586DC1B753E2B00BFF84B /* Data Structures.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C1586DB1B753E2B00BFF84B /* Data Structures.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C1586E21B753E2B00BFF84B /* Data Structures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C1586D61B753E2B00BFF84B /* Data Structures.framework */; };
+		6C1586E21B753E2B00BFF84B /* DataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C1586D61B753E2B00BFF84B /* DataStructures.framework */; };
 		6C1586E91B753E2B00BFF84B /* Data_StructuresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1586E81B753E2B00BFF84B /* Data_StructuresTests.swift */; };
+		6C1586F31B7541BB00BFF84B /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1586F21B7541BB00BFF84B /* Queue.swift */; };
+		6C1586F41B7541BB00BFF84B /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1586F21B7541BB00BFF84B /* Queue.swift */; };
+		6C1586F71B7541C900BFF84B /* QueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1586F51B7541C900BFF84B /* QueueTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +26,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6C1586D61B753E2B00BFF84B /* Data Structures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Data Structures.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C1586D61B753E2B00BFF84B /* DataStructures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataStructures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1586DA1B753E2B00BFF84B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1586DB1B753E2B00BFF84B /* Data Structures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Data Structures.h"; sourceTree = "<group>"; };
 		6C1586E11B753E2B00BFF84B /* Data StructuresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Data StructuresTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1586E71B753E2B00BFF84B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1586E81B753E2B00BFF84B /* Data_StructuresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_StructuresTests.swift; sourceTree = "<group>"; };
+		6C1586F21B7541BB00BFF84B /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		6C1586F51B7541C900BFF84B /* QueueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C1586E21B753E2B00BFF84B /* Data Structures.framework in Frameworks */,
+				6C1586E21B753E2B00BFF84B /* DataStructures.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +67,7 @@
 		6C1586D71B753E2B00BFF84B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6C1586D61B753E2B00BFF84B /* Data Structures.framework */,
+				6C1586D61B753E2B00BFF84B /* DataStructures.framework */,
 				6C1586E11B753E2B00BFF84B /* Data StructuresTests.xctest */,
 			);
 			name = Products;
@@ -71,6 +76,7 @@
 		6C1586D81B753E2B00BFF84B /* Data Structures */ = {
 			isa = PBXGroup;
 			children = (
+				6C1586F21B7541BB00BFF84B /* Queue.swift */,
 				6C1586DB1B753E2B00BFF84B /* Data Structures.h */,
 				6C1586D91B753E2B00BFF84B /* Supporting Files */,
 			);
@@ -89,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				6C1586E81B753E2B00BFF84B /* Data_StructuresTests.swift */,
+				6C1586F51B7541C900BFF84B /* QueueTests.swift */,
 				6C1586E61B753E2B00BFF84B /* Supporting Files */,
 			);
 			path = "Data StructuresTests";
@@ -116,9 +123,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6C1586D51B753E2B00BFF84B /* Data Structures */ = {
+		6C1586D51B753E2B00BFF84B /* DataStructures */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6C1586EC1B753E2B00BFF84B /* Build configuration list for PBXNativeTarget "Data Structures" */;
+			buildConfigurationList = 6C1586EC1B753E2B00BFF84B /* Build configuration list for PBXNativeTarget "DataStructures" */;
 			buildPhases = (
 				6C1586D11B753E2B00BFF84B /* Sources */,
 				6C1586D21B753E2B00BFF84B /* Frameworks */,
@@ -129,9 +136,9 @@
 			);
 			dependencies = (
 			);
-			name = "Data Structures";
+			name = DataStructures;
 			productName = "Data Structures";
-			productReference = 6C1586D61B753E2B00BFF84B /* Data Structures.framework */;
+			productReference = 6C1586D61B753E2B00BFF84B /* DataStructures.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		6C1586E01B753E2B00BFF84B /* Data StructuresTests */ = {
@@ -181,7 +188,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6C1586D51B753E2B00BFF84B /* Data Structures */,
+				6C1586D51B753E2B00BFF84B /* DataStructures */,
 				6C1586E01B753E2B00BFF84B /* Data StructuresTests */,
 			);
 		};
@@ -209,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C1586F31B7541BB00BFF84B /* Queue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +225,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C1586E91B753E2B00BFF84B /* Data_StructuresTests.swift in Sources */,
+				6C1586F71B7541C900BFF84B /* QueueTests.swift in Sources */,
+				6C1586F41B7541BB00BFF84B /* Queue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +235,7 @@
 /* Begin PBXTargetDependency section */
 		6C1586E41B753E2B00BFF84B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6C1586D51B753E2B00BFF84B /* Data Structures */;
+			target = 6C1586D51B753E2B00BFF84B /* DataStructures */;
 			targetProxy = 6C1586E31B753E2B00BFF84B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -318,6 +328,7 @@
 		6C1586ED1B753E2B00BFF84B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -329,12 +340,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		6C1586EE1B753E2B00BFF84B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -393,13 +406,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6C1586EC1B753E2B00BFF84B /* Build configuration list for PBXNativeTarget "Data Structures" */ = {
+		6C1586EC1B753E2B00BFF84B /* Build configuration list for PBXNativeTarget "DataStructures" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6C1586ED1B753E2B00BFF84B /* Debug */,
 				6C1586EE1B753E2B00BFF84B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6C1586EF1B753E2B00BFF84B /* Build configuration list for PBXNativeTarget "Data StructuresTests" */ = {
 			isa = XCConfigurationList;
@@ -408,6 +422,7 @@
 				6C1586F11B753E2B00BFF84B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

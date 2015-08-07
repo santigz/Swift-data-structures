@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6C1586D51B753E2B00BFF84B"
-               BuildableName = "Data Structures.framework"
-               BlueprintName = "Data Structures"
+               BuildableName = "DataStructures.framework"
+               BlueprintName = "DataStructures"
                ReferencedContainer = "container:Data Structures.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,8 +57,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6C1586D51B753E2B00BFF84B"
-            BuildableName = "Data Structures.framework"
-            BlueprintName = "Data Structures"
+            BuildableName = "DataStructures.framework"
+            BlueprintName = "DataStructures"
             ReferencedContainer = "container:Data Structures.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -76,8 +76,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6C1586D51B753E2B00BFF84B"
-            BuildableName = "Data Structures.framework"
-            BlueprintName = "Data Structures"
+            BuildableName = "DataStructures.framework"
+            BlueprintName = "DataStructures"
             ReferencedContainer = "container:Data Structures.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -94,8 +94,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6C1586D51B753E2B00BFF84B"
-            BuildableName = "Data Structures.framework"
-            BlueprintName = "Data Structures"
+            BuildableName = "DataStructures.framework"
+            BlueprintName = "DataStructures"
             ReferencedContainer = "container:Data Structures.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
