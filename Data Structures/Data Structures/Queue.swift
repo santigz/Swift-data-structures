@@ -11,39 +11,70 @@
 
 import Foundation
 
-protocol Queue {
+/**
+    Abstract container type with two ends: head and tail
+ */
+protocol DoubleEndedContainer {
     typealias ItemType
     
     var isEmpty: Bool { get }
     var count: Int { get }
     var head: ItemType? { get }
     var tail: ItemType? { get }
-    
+
+    mutating func purge()
+}
+
+/**
+    Container that inserts and removes elements in LIFO (last-in first-out) order
+ */
+protocol Queue: DoubleEndedContainer {
     mutating func enqueueTail(item: ItemType)
     mutating func dequeueHead() -> ItemType?
 }
 
-protocol BidirectionalQueue: Queue {
-    mutating func enqueueHead(item: ItemType)
+/**
+    Container that inserts and removes elements in FIFO (first-in first-out) order
+ */
+protocol Stack: DoubleEndedContainer {
+    mutating func enqueueTail(item: ItemType)
     mutating func dequeueTail() -> ItemType?
 }
 
-class ArrayQueue<T>: BidirectionalQueue {
-    lazy var array = Array<T?>(count: 512, repeatedValue: nil)
-    var headIdx: Int = 0
-    var tailIdx: Int = 0
-    var count: Int = 0
+/**
+    ArrayQueue implements a circular queue using an array as a container.
+    It must be created with a fixed capacity that can never exceed - otherwise it crashes.
+ */
+class CircularArray<T>: Queue, Stack {
+
+    // Private attributes (waiting for Swift access modifiers)
+    var array: [T?]
+    var headIdx = 0
+    var tailIdx = 0
+    var count = 0
+
+    // Public attributes
+
+    /// The capacity of the ArrayQueue that can never be exceeded when enqueueing.
+    let capacity: Int
     
+    // MARK: ArrayQueue unique methods
+    
+    /// Init the array queue with a fixed capacity
     init(capacity: Int) {
-        array = Array<T?>(count: capacity, repeatedValue: nil)
+        self.array = Array<T?>(count: capacity, repeatedValue: nil)
+        self.capacity = capacity
     }
+    
+    /// Whether the array queue reached its maximum capacity
+    var isFull: Bool {
+        return count == array.count
+    }
+    
+    // MARK: Queue protocol methods
     
     var isEmpty: Bool {
         return count == 0
-    }
-    
-    var isFull: Bool {
-        return count == array.count
     }
     
     var head: T? {
@@ -54,14 +85,13 @@ class ArrayQueue<T>: BidirectionalQueue {
         return array[tailIdx]
     }
     
-    // Queue methods
-    
     func enqueueTail(item: T) {
         if isFull {
             assertionFailure("ArrayQueue too small")
             return
         }
-        if ++tailIdx == array.count {
+        // The first element enqueued must match for head and tail
+        if !isEmpty && ++tailIdx == array.count {
             tailIdx = 0
         }
         ++count
@@ -74,21 +104,21 @@ class ArrayQueue<T>: BidirectionalQueue {
         }
         var result = array[headIdx]
         array[headIdx] = nil
-        if ++headIdx == array.count {
+        --count
+        // The last element enqueued must match for head and tail
+        if !isEmpty && ++headIdx == array.count {
             headIdx = 0
         }
-        --count
         return result
     }
-    
-    // BidirectionalQueue methods
     
     func enqueueHead(item: T) {
         if isFull {
             assertionFailure("ArrayQueue too small")
             return
         }
-        if --headIdx < 0 {
+        // The first element enqueued must match for head and tail
+        if !isEmpty && --headIdx < 0 {
             headIdx = array.count - 1
         }
         ++count
@@ -101,10 +131,18 @@ class ArrayQueue<T>: BidirectionalQueue {
         }
         var result = array[tailIdx]
         array[tailIdx] = nil
-        if --tailIdx < 0 {
+        --count
+        // The last element enqueued must match for head and tail
+        if !isEmpty && --tailIdx < 0 {
             tailIdx = array.count - 1
         }
-        --count
         return result
+    }
+    
+    func purge() {
+        array = Array<T?>(count: capacity, repeatedValue: nil)
+        headIdx = 0
+        tailIdx = 0
+        count = 0
     }
 }
