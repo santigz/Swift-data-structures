@@ -1,8 +1,7 @@
 //
 //  QueueTests.swift
 //
-//  Created by Deckard on 27/08/2014.
-//  Copyright (c) 2014 Santiago González. All rights reserved.
+//  Copyright (c) 2015 Santiago González.
 //
 
 import Cocoa
@@ -10,21 +9,23 @@ import XCTest
 
 class QueueTests: XCTestCase {
     
-    let lengthTest = 100
+    let testLength = 100
     
     override func setUp() {
         super.setUp()
-        assert(lengthTest > 2, "lengthTest is too small")
+        assert(testLength > 2, "lengthTest is too small")
     }
     
-    /// Test a Queue with Int type.
-    /// The queue should be empty at start and will be empty at end
+    /**
+        Test a Queue with Int type.
+        The queue should be empty at start and will be empty at end
+     */
     func queueTest<T: Queue where T.ItemType == Int>(inout queue: T) {
         assert(queue.count == 0, "Count should be zero")
         assert(queue.isEmpty, "Queue should be empty")
         
         // Test enqueueTail()
-        for element in 1...lengthTest {
+        for element in 1...testLength {
             queue.enqueueTail(element)
             assert(queue.count == element, "Queue should have \(element) elements")
             assert(!queue.isEmpty, "Queue should not be empty")
@@ -33,12 +34,12 @@ class QueueTests: XCTestCase {
         }
         
         // Test dequeueHead()
-        for element in 1...(lengthTest - 1) {
+        for element in 1...(testLength - 1) {
             queue.dequeueHead()
-            let count = lengthTest - element
+            let count = testLength - element
             assert(queue.count == count, "Queue should have \(count) elements")
             assert(!queue.isEmpty, "Queue should not be empty")
-            assert(queue.tail == lengthTest, "Bad tail")
+            assert(queue.tail == testLength, "Bad tail")
             assert(queue.head == element + 1, "Bad head")
         }
         queue.dequeueHead()
@@ -48,7 +49,7 @@ class QueueTests: XCTestCase {
         assert(queue.head == nil, "Bad head")
         
         // Test purge
-        for _ in 1...min(3, lengthTest) {
+        for _ in 1...min(3, testLength) {
             queue.enqueueTail(1)
         }
         assert(queue.count > 0, "Count should be zero")
@@ -58,14 +59,16 @@ class QueueTests: XCTestCase {
         assert(queue.isEmpty, "Queue should be empty")
     }
     
-    /// Test a Stack with Int type.
-    /// The queue should be empty at start and will be empty at end
+    /**
+        Test a Stack with Int type.
+        The stack should be empty at start and will be empty at end
+     */
     func stackTest<T: Stack where T.ItemType == Int>(inout stack: T) {
         assert(stack.count == 0, "Count should be zero")
         assert(stack.isEmpty, "Queue should be empty")
         
         // Test enqueueTail()
-        for element in 1...lengthTest {
+        for element in 1...testLength {
             stack.enqueueTail(element)
             assert(stack.count == element, "Queue should have \(element) elements")
             assert(!stack.isEmpty, "Queue should not be empty")
@@ -74,7 +77,7 @@ class QueueTests: XCTestCase {
         }
         
         // Test dequeueTail()
-        for element in reverse(1...(lengthTest - 1)) {
+        for element in reverse(1...(testLength - 1)) {
             stack.dequeueTail()
             assert(stack.count == element, "Queue should have \(element) elements")
             assert(!stack.isEmpty, "Queue should not be empty")
@@ -88,7 +91,7 @@ class QueueTests: XCTestCase {
         assert(stack.head == nil, "Bad head")
         
         // Test purge
-        for _ in 1...min(3, lengthTest) {
+        for _ in 1...min(3, testLength) {
             stack.enqueueTail(1)
         }
         assert(stack.count > 0, "Count should be zero")
@@ -98,27 +101,56 @@ class QueueTests: XCTestCase {
         assert(stack.isEmpty, "Queue should be empty")
     }
     
-    func testCircularArray() {
-        var circarray = CircularArray<Int>(capacity: lengthTest)
-        assert(!circarray.isFull, "ArrayQueue should not be full")
-        assert(circarray.capacity == lengthTest, "Bad ArrayQueue capacity")
-        
-        // Test as Queue and Stack
-        queueTest(&circarray)
-        stackTest(&circarray)
+    /**
+        Test a BidirectionalContainer with Int type.
+        The container should be empty at start and will be empty at end.
+        It does not test the methods in Stack or Queue
+     */
+    func bidirectionalContainerTest<T: BidirectionalContainer where T.ItemType == Int>(inout container: T) {
         
         // Test enqueueHead(), not tested in Queue nor Stack
-        for element in 1...lengthTest {
-            circarray.enqueueHead(element)
-            assert(circarray.count == element, "Queue should have \(element) elements")
-            assert(!circarray.isEmpty, "Queue should not be empty")
-            assert(circarray.head == element, "Bad tail")
-            assert(circarray.tail == 1, "Bad head")
+        for element in 1...testLength {
+            container.enqueueHead(element)
+            assert(container.count == element, "BidirectionalContainer should have \(element) elements")
+            assert(!container.isEmpty, "BidirectionalContainer should not be empty")
+            assert(container.head == element, "Bad tail")
+            assert(container.tail == 1, "Bad head")
         }
         
-        // Test full CircularArray
-        assert(circarray.isFull, "ArrayQueue should be full")
-        assert(circarray.capacity == lengthTest, "Bad ArrayQueue capacity")
+        container.purge()
+        assert(container.count == 0, "Count should be zero")
+        assert(container.isEmpty, "BidirectionalContainer should be empty")
+    }
+    
+    func testCircularArray() {
+        var circarray = CircularArray<Int>(capacity: testLength)
+        assert(!circarray.isFull, "BidirectionalContainer should not be full")
+        assert(circarray.capacity == testLength, "Bad BidirectionalContainer capacity")
+        
+        queueTest(&circarray)
+        stackTest(&circarray)
+        bidirectionalContainerTest(&circarray)
+        
+        // Other CircularArray tests
+        for _ in 1...testLength {
+            circarray.enqueueTail(1)
+        }
+        assert(circarray.isFull, "CircularArray should be full")
+        assert(circarray.capacity == testLength, "Bad CircularArray capacity")
+    }
+    
+    func testCircularArrayPerformance() {
+        self.measureBlock() {
+            let length = 100
+            var circarray = CircularArray<Int>(capacity: length)
+            for _ in 1...length {
+                circarray.enqueueTail(1)
+            }
+            for _ in 1...length {
+                circarray.dequeueHead()
+            }
+        }
+        
     }
     
 }

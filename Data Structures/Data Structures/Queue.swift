@@ -1,8 +1,7 @@
 //
 //  Queue.swift
 //
-//  Created by Santiago González on 27/08/2014.
-//  Copyright (c) 2014 Santiago González. All rights reserved.
+//  Copyright (c) 2015 Santiago González.
 //
 // Notes for Swift beginners:
 // - SequenceType protocol (formerly called Sequence) makes possible the use of for-in loop.
@@ -11,41 +10,70 @@
 
 import Foundation
 
+
 /**
     Abstract container type with two ends: head and tail
  */
 protocol DoubleEndedContainer {
     typealias ItemType
     
+    /// Whether the container is empty
     var isEmpty: Bool { get }
+    
+    /// Number of elements in the container
     var count: Int { get }
+    
+    /// Element at the head of the container
     var head: ItemType? { get }
+    
+    /// Element at the tail of the container
     var tail: ItemType? { get }
 
+    /// Remove all elements in the container
     mutating func purge()
 }
 
+
 /**
-    Container that inserts and removes elements in LIFO (last-in first-out) order
+    Container that inserts and removes elements in LIFO (last-in first-out) order.
+    New elements are added at the tail and removed from the head.
  */
 protocol Queue: DoubleEndedContainer {
+    /// Enqueue a new element at the tail
     mutating func enqueueTail(item: ItemType)
+    
+    /// Dequeue an element from the head, returning it
     mutating func dequeueHead() -> ItemType?
 }
 
+
 /**
-    Container that inserts and removes elements in FIFO (first-in first-out) order
+    Container that inserts and removes elements in FIFO (first-in first-out) order.
+    Elements are inserted to and removed from the same end, the tail.
  */
 protocol Stack: DoubleEndedContainer {
+    /// Enqueue a new element at the tail
     mutating func enqueueTail(item: ItemType)
+    
+    /// Dequeue an element from the tail, returning it
     mutating func dequeueTail() -> ItemType?
 }
+
+
+/**
+    Double ended container that can insert and remove elements at both ends (head and tail). It generalizes the structures of Queue and Stack so that only the `enqueueHead()` function needs to be added.
+ */
+protocol BidirectionalContainer: Queue, Stack {
+    /// Enqueue a new element at the head
+    mutating func enqueueHead(item: ItemType)
+}
+
 
 /**
     ArrayQueue implements a circular queue using an array as a container.
     It must be created with a fixed capacity that can never exceed - otherwise it crashes.
  */
-class CircularArray<T>: Queue, Stack {
+class CircularArray<T>: BidirectionalContainer {
 
     // Private attributes (waiting for Swift access modifiers)
     var array: [T?]
@@ -70,8 +98,6 @@ class CircularArray<T>: Queue, Stack {
     var isFull: Bool {
         return count == array.count
     }
-    
-    // MARK: Queue protocol methods
     
     var isEmpty: Bool {
         return count == 0
