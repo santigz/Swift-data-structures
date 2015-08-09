@@ -123,6 +123,15 @@ class CircularArray<T>: DoubleEndedContainer {
     }
 }
 
+extension CircularArray: Printable, DebugPrintable {
+    var description: String {
+        return "CircularArray: " + array.description
+    }
+    var debugDescription: String {
+        return "CircularArray: " + array.debugDescription
+    }
+}
+
 /**
     Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method.
 */
