@@ -133,7 +133,7 @@ extension CircularArray: Printable, DebugPrintable {
 }
 
 /**
-    Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method.
+    Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method. This extension exists to enable polymorphism.
 */
 extension CircularArray: Queue, Deque, Stack {
 }
