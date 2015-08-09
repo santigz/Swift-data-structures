@@ -63,7 +63,7 @@ class CircularArray<T>: DoubleEndedContainer {
     
     func pushBack(item: T) {
         if isFull {
-            assertionFailure("ArrayQueue too small")
+            assertionFailure("CircularArray too small")
             return
         }
         // The first element enqueued must match for back and front
@@ -76,7 +76,7 @@ class CircularArray<T>: DoubleEndedContainer {
     
     func pushFront(item: T) {
         if isFull {
-            assertionFailure("ArrayQueue too small")
+            assertionFailure("CircularArray too small")
             return
         }
         // The first element enqueued must match for back and front

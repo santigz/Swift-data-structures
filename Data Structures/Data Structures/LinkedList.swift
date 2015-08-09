@@ -25,6 +25,7 @@ class LinkedListElement<T> {
 
 extension LinkedListElement: Printable, DebugPrintable {
     var description: String {
+        // How can we call `value.description` when possible?
         return "LinkedListElement: \(value)"
     }
     var debugDescription: String {
