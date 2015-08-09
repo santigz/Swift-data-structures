@@ -141,9 +141,16 @@ class QueueTests: XCTestCase {
         doubleEndedContainerTest(&circarray)
         
         // Other CircularArray tests
-        for _ in 1...testLength {
-            circarray.pushFront(1)
+        for i in 1...testLength {
+            circarray.pushBack(i)
         }
+        
+        var i = 1
+        for element in circarray {
+            assert(element == i, "Bad CircularArray element while looping")
+            ++i
+        }
+        
         assert(circarray.isFull, "CircularArray should be full")
         assert(circarray.capacity == testLength, "Bad CircularArray capacity")
     }
