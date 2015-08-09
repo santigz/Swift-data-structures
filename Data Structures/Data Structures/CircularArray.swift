@@ -123,6 +123,68 @@ class CircularArray<T>: DoubleEndedContainer {
     }
 }
 
+/**
+    Make the CircularArray iterable as a regular array, starting from frontIdx and looping through the array transparently
+ */
+extension CircularArray: MutableCollectionType {
+    /// Always zero
+    var startIndex: Int {
+        return 0;
+    }
+    
+    /// Equal to the number of elements in the array
+    var endIndex: Int {
+        return count
+    }
+    
+    subscript (position: Int) -> T {
+        get {
+            if position >= count {
+                // TODO: Throw?
+            }
+            let i = (position + frontIdx) % count
+            return array[i]!
+        }
+        set {
+            if position >= count {
+                // TODO: Throw?
+            }
+            let i = (position + frontIdx) % count
+            array[i] = newValue
+        }
+    }
+    
+    func generate() -> CircularArrayGenerator<T> {
+        var slices: Array<Slice<T?>> = []
+        if isEmpty {
+            return CircularArrayGenerator(slices: slices)
+        }
+        if backIdx > frontIdx {
+            slices.append(array[frontIdx...backIdx].reverse())
+        } else {
+            slices.append(array[0...backIdx].reverse())
+            slices.append(array[frontIdx..<capacity].reverse())
+        }
+        return CircularArrayGenerator(slices: slices)
+    }
+}
+
+struct CircularArrayGenerator<T>: GeneratorType {
+    /// Array with the sub-arrays as slices of the elements. Everything must be in reverse order for efficiency
+    var slices: Array<Slice<T?>>
+    mutating func next() -> T? {
+        if slices.isEmpty {
+            return nil
+        }
+        var ret = slices[slices.count - 1].removeLast()
+        if slices[slices.count - 1].isEmpty {
+            slices.removeLast()
+        }
+        return ret
+    }
+}
+
+
 extension CircularArray: Printable, DebugPrintable {
     var description: String {
         return "CircularArray: " + array.description
@@ -135,6 +197,11 @@ extension CircularArray: Printable, DebugPrintable {
 /**
     Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method. This extension exists to enable polymorphism.
 */
-extension CircularArray: Queue, Deque, Stack {
-}
+extension CircularArray: Queue, Deque, Stack {}
+
+//extension CircularArray: Equatable {}
+//func ==<T> (lhs: CircularArray<T>, rhs: CircularArray<T>) -> Bool {
+//    // We can't compare `lhs.array == rhs.array` because the array has optional values. Looks like a Swift bug.
+//    return lhs.array == rhs.array
+//}
 
