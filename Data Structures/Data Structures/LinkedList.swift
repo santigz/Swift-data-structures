@@ -10,7 +10,7 @@ import Foundation
 class LinkedListElement<T> {
     let value: T?
     var back: LinkedListElement<T>? = nil
-    var front: LinkedListElement<T>? = nil
+    weak var front: LinkedListElement<T>? = nil
     
     init(value: T) {
         self.value = value
@@ -60,26 +60,29 @@ public class LinkedList<T>: DoubleEndedContainer {
         }
     }
 
+    /// Insert a new element to the back. Complexity: O(1)
     func pushBack(item: T) {
         let newBack = LinkedListElement<T>(value: item, back: nil, front: linkedBack)
-        if linkedBack == nil {
-            linkedBack = newBack
+        if linkedFront == nil {
+            linkedFront = newBack
         }
         linkedBack?.back = newBack
         linkedBack = newBack
         ++count
     }
     
+    /// Insert a new element to the front. Complexity: O(1)
     func pushFront(item: T) {
         let newTail = LinkedListElement<T>(value: item, back: linkedFront, front: nil)
-        if linkedFront == nil {
-            linkedFront = newTail
+        if linkedBack == nil {
+            linkedBack = newTail
         }
         linkedFront?.front = newTail
         linkedFront = newTail
         ++count
     }
     
+    /// Remove the element at the back if any and return it. Complexity: O(1)
     func popBack() -> T? {
         if isEmpty {
             return nil
@@ -88,9 +91,13 @@ public class LinkedList<T>: DoubleEndedContainer {
         let result = linkedBack!
         linkedBack!.front?.back = nil
         linkedBack = result.front
+        if count == 0 {
+            linkedFront = nil
+        }
         return result.value
     }
     
+    /// Remove the element at the front if any and return it. Complexity: O(1)
     func popFront() -> T? {
         if isEmpty {
             return nil
@@ -99,6 +106,9 @@ public class LinkedList<T>: DoubleEndedContainer {
         let result = linkedFront!
         linkedFront!.back?.front = nil
         linkedFront = result.back
+        if count == 0 {
+            linkedBack = nil
+        }
         return result.value
     }
     
@@ -106,6 +116,7 @@ public class LinkedList<T>: DoubleEndedContainer {
         // Since LinkedListElement.back is weak, deleting our links will delete all the elements in cascade
         linkedFront = nil
         linkedBack = nil
+        count = 0
     }
 }
 
