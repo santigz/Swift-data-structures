@@ -2,8 +2,7 @@
 //  Data_StructuresTests.swift
 //  Data StructuresTests
 //
-//  Created by Santiago González on 07/08/2015.
-//  Copyright (c) 2015 sangonz. All rights reserved.
+//  Copyright (c) 2015 Santiago González.
 //
 
 import Cocoa
