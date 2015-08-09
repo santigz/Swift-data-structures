@@ -23,6 +23,15 @@ class LinkedListElement<T> {
     }
 }
 
+extension LinkedListElement: Printable, DebugPrintable {
+    var description: String {
+        return "LinkedListElement: \(value)"
+    }
+    var debugDescription: String {
+        return "LinkedListElement: \(value)"
+    }
+}
+
 /**
     LinkedList implementation. 
 */
@@ -120,8 +129,31 @@ public class LinkedList<T>: DoubleEndedContainer {
     }
 }
 
+extension LinkedList: Printable, DebugPrintable {
+    public var description: String {
+        var desc = "LinkedList = \(self.count) items {"
+        var element = linkedFront
+        while element != nil {
+            desc += "    " + element!.description
+            element = element!.back
+        }
+        desc += "}"
+        return desc
+    }
+    public var debugDescription: String {
+        var desc = "LinkedList = \(self.count) items {"
+        var element = linkedFront
+        while element != nil {
+            desc += "    " + element!.debugDescription
+            element = element!.back
+        }
+        desc += "}"
+        return desc
+    }
+}
+
 /**
-    Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method.
- */
+    Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method. This extension exists to enable polymorphism.
+*/
 extension LinkedList: Queue, Deque, Stack {
 }
