@@ -115,7 +115,7 @@ class CircularArray<T>: DoubleEndedContainer {
         return result
     }
     
-    func purge() {
+    func removeAll() {
         array = Array<T?>(count: capacity, repeatedValue: nil)
         backIdx = 0
         frontIdx = 0

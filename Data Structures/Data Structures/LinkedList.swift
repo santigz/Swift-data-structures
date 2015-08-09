@@ -112,8 +112,8 @@ public class LinkedList<T>: DoubleEndedContainer {
         return result.value
     }
     
-    func purge() {
-        // Since LinkedListElement.back is weak, deleting our links will delete all the elements in cascade
+    func removeAll() {
+        // All is removed in cascade because LinkedListElement.front is weak
         linkedFront = nil
         linkedBack = nil
         count = 0

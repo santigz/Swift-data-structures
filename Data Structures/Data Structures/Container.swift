@@ -19,7 +19,7 @@ protocol Container {
     var count: Int { get }
     
     /// Remove all elements in the container
-    mutating func purge()
+    mutating func removeAll()
 }
 
 /**
