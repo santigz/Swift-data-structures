@@ -137,18 +137,13 @@ extension CircularArray: MutableCollectionType {
         return count
     }
     
+    /// If the position index is out of bounds, it might crash
     subscript (position: Int) -> T {
         get {
-            if position >= count {
-                // TODO: Throw?
-            }
             let i = (position + frontIdx) % count
             return array[i]!
         }
         set {
-            if position >= count {
-                // TODO: Throw?
-            }
             let i = (position + frontIdx) % count
             array[i] = newValue
         }
