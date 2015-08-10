@@ -14,8 +14,11 @@ import Foundation
 /**
     Container that inserts and removes elements in LIFO (last-in first-out) order.
     New elements are added at the tail and removed from the head.
+    Subscripting and looping go from front to back.
  */
 protocol Queue: Container {
+    typealias Element
+    
     /// Element at the back the container
     var back: Element? { get }
     

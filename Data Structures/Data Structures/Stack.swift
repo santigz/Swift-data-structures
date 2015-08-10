@@ -10,8 +10,11 @@ import Foundation
 /**
     Container that inserts and removes elements in FIFO (first-in first-out) order.
     Elements are inserted to and removed from the same end, the back.
+    Subscripting and looping go from front to back.
 */
 protocol Stack: Container {
+    typealias Element
+    
     // Last added element to the stack
     var back: Element? { get set }
     

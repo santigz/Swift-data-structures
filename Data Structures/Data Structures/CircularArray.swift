@@ -13,8 +13,6 @@ import Foundation
     It must be created with a fixed capacity that can never exceed - otherwise it crashes.
 */
 class CircularArray<T>: DoubleEndedContainer {
-    typealias Element = T
-    
     private var array: [T?]
     private var backIdx = 0
     private var frontIdx = 0
@@ -115,6 +113,7 @@ class CircularArray<T>: DoubleEndedContainer {
         return result
     }
     
+    /// Remove all the elements of the circular array
     func removeAll() {
         array = Array<T?>(count: capacity, repeatedValue: nil)
         backIdx = 0
@@ -137,7 +136,7 @@ extension CircularArray: MutableCollectionType {
         return count
     }
     
-    /// If the position index is out of bounds, it might crash
+    /// The position must be within bounds. Otherwise it might crash. Complexity: O(1)
     subscript (position: Int) -> T {
         get {
             let i = (position + frontIdx) % count
@@ -164,6 +163,9 @@ extension CircularArray: MutableCollectionType {
     }
 }
 
+/**
+    This class is used to make CircularArray subscriptable.
+*/
 struct CircularArrayGenerator<T>: GeneratorType {
     /// Array with the sub-arrays as slices of the elements. Everything must be in reverse order for efficiency
     var slices: Array<Slice<T?>>

@@ -6,10 +6,14 @@
 
 import Foundation
 
-/// Should be only visible inside LinkedList
+/**
+    Should be only visible inside LinkedList.
+ */
 class LinkedListElement<T> {
-    let value: T?
+    var value: T
     var back: LinkedListElement<T>? = nil
+    
+    // front is weak to avoid reference cycles
     weak var front: LinkedListElement<T>? = nil
     
     init(value: T) {
@@ -36,9 +40,7 @@ extension LinkedListElement: Printable, DebugPrintable {
 /**
     LinkedList implementation. 
 */
-public class LinkedList<T>: DoubleEndedContainer {
-    typealias Element = T
-    
+class LinkedList<T>: DoubleEndedContainer {
     private var linkedFront: LinkedListElement<T>? = nil
     private var linkedBack: LinkedListElement<T>? = nil
     
@@ -122,6 +124,7 @@ public class LinkedList<T>: DoubleEndedContainer {
         return result.value
     }
     
+    /// Remove all the elements of the linked list
     func removeAll() {
         // All is removed in cascade because LinkedListElement.front is weak
         linkedFront = nil
@@ -130,8 +133,62 @@ public class LinkedList<T>: DoubleEndedContainer {
     }
 }
 
+/**
+Make the CircularArray iterable as a regular array, starting from frontIdx and looping through the array transparently
+*/
+extension LinkedList: MutableCollectionType {
+    /// Always zero
+    var startIndex: Int {
+        return 0;
+    }
+    
+    /// Equal to the number of elements in the array
+    var endIndex: Int {
+        return count
+    }
+    
+    /// Returns the LinkedListElement at the given position
+    private func element(position: Int) -> LinkedListElement<T> {
+        var element = linkedFront!
+        for _ in 0..<position {
+            element = element.back!
+        }
+        return element
+    }
+    
+    /// The position must be within bounds. Otherwise it might crash. Complexity: O(n)
+    subscript (position: Int) -> T {
+        get {
+            return element(position).value
+        }
+        set {
+            element(position).value = newValue
+        }
+    }
+    
+    /// Function for iterating the linked list
+    func generate() -> LinkedListGenerator<T> {
+        return LinkedListGenerator(frontElement: linkedFront)
+    }
+}
+
+/**
+    This class is used to make LinkedList subscriptable
+ */
+struct LinkedListGenerator<T>: GeneratorType {
+    var frontElement: LinkedListElement<T>?
+    mutating func next() -> T? {
+        if frontElement == nil {
+            return nil
+        }
+        var ret = frontElement!.value
+        frontElement = frontElement!.back
+        return ret
+    }
+}
+
 extension LinkedList: Printable, DebugPrintable {
-    public var description: String {
+    var description: String {
         var desc = "LinkedList = \(self.count) items {"
         var element = linkedFront
         while element != nil {
@@ -141,7 +198,7 @@ extension LinkedList: Printable, DebugPrintable {
         desc += "}"
         return desc
     }
-    public var debugDescription: String {
+    var debugDescription: String {
         var desc = "LinkedList = \(self.count) items {"
         var element = linkedFront
         while element != nil {
