@@ -22,7 +22,7 @@ class QueueTests: XCTestCase {
     /**
       pushBack in a container to insert the data: (front) 1...testLength (back)
     */
-    func doubleEndedContainerPushBackTest<T: DoubleEndedContainer where T.Element == Int>(inout container: T) {
+    func doubleEndedContainerPushBackTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
         // Test pushBack()
         for element in 1...testLength {
             container.pushBack(element)
@@ -37,7 +37,7 @@ class QueueTests: XCTestCase {
     /**
       pushFront in a container to insert the data: (front) 1...testLength (back)
     */
-    func doubleEndedContainerPushFrontTest<T: DoubleEndedContainer where T.Element == Int>(inout container: T) {
+    func doubleEndedContainerPushFrontTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
         // Test pushFront()
         for element in reverse(1...testLength) {
             container.pushFront(element)
@@ -52,7 +52,7 @@ class QueueTests: XCTestCase {
     /**
       popBack from a container with the data: (front) 1...testLength (back)
     */
-    func doubleEndedContainerPopBackTest<T: DoubleEndedContainer where T.Element == Int>(inout container: T) {
+    func doubleEndedContainerPopBackTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
         // Test popBack()
         for element in reverse(2...testLength) {
             let popped = container.popBack()
@@ -76,7 +76,7 @@ class QueueTests: XCTestCase {
     /**
         popFront from a container with the data: (front) 1...testLength (back)
      */
-    func doubleEndedContainerPopFrontTest<T: DoubleEndedContainer where T.Element == Int>(inout container: T) {
+    func doubleEndedContainerPopFrontTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
         // Test popFront()
         for element in 1...(testLength - 1) {
             let popped = container.popFront()
@@ -98,6 +98,23 @@ class QueueTests: XCTestCase {
         assert(popped2 == nil, "Bad popFront() element")
     }
     
+    func doubleEndedContainerSubscriptTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
+        for element in 1...testLength {
+            container.pushBack(element)
+        }
+        
+        var i: Int = 1
+        for element in container {
+            assert(element == i, "Bad DoubleEndedContainer subscript")
+            ++i
+        }
+        
+        let pos = testLength / 2
+        container[pos] = 34
+        assert(container[pos] == 34, "LinkedList subscript failed")
+        
+        container.removeAll()
+    }
     
     /**
         Test a DoubleEndedContainer with Int type.
@@ -105,7 +122,7 @@ class QueueTests: XCTestCase {
         
         This also tests Queue, Deque and Stack, which are a subset of DoubleEndedContainer
      */
-    func doubleEndedContainerTest<T: DoubleEndedContainer where T.Element == Int>(inout container: T) {
+    func doubleEndedContainerTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
         assert(container.count == 0, "Count should be zero")
         assert(container.isEmpty, "Queue should be empty")
         
@@ -121,6 +138,8 @@ class QueueTests: XCTestCase {
         
         doubleEndedContainerPushFrontTest(&container)
         doubleEndedContainerPopFrontTest(&container)
+        
+        doubleEndedContainerSubscriptTest(&container)
         
         // Test removeAll
         for _ in 1...min(3, testLength) {
@@ -150,6 +169,10 @@ class QueueTests: XCTestCase {
             assert(element == i, "Bad CircularArray element while looping")
             ++i
         }
+
+        let pos = testLength / 2
+        circarray[pos] = 34
+        assert(circarray[pos] == 34, "CircularArray subscript failed")
         
         assert(circarray.isFull, "CircularArray should be full")
         assert(circarray.capacity == testLength, "Bad CircularArray capacity")
@@ -157,7 +180,7 @@ class QueueTests: XCTestCase {
     
     func testCircularArrayPerformance() {
         self.measureBlock() {
-            let length = 100
+            let length = 1000
             var circarray = CircularArray<Int>(capacity: length)
             for _ in 1...length {
                 circarray.pushFront(1)
@@ -169,7 +192,7 @@ class QueueTests: XCTestCase {
     }
     
     
-    class Element {
+    class TestElement {
         deinit {
             ++nElementDeinit
         }
@@ -179,14 +202,27 @@ class QueueTests: XCTestCase {
         var llist = LinkedList<Int>()
         doubleEndedContainerTest(&llist)
         
-        // Test all objects are deinitialized on removeAll()
-        var llist2 = LinkedList<Element>()
+        // Test that all objects are deinitialized on removeAll()
+        var llist2 = LinkedList<TestElement>()
         nElementDeinit = 0
         for _ in 1...testLength {
-            llist2.pushBack(Element())
+            llist2.pushBack(TestElement())
         }
+
         llist2.removeAll()
         assert(nElementDeinit == testLength, "Wrong number of deinitializers")
     }
     
+    func testLinkedListPerformance() {
+        self.measureBlock() {
+            let length = 1000
+            var llist = LinkedList<Int>()
+            for _ in 1...length {
+                llist.pushFront(1)
+            }
+            for _ in 1...length {
+                llist.popBack()
+            }
+        }
+    }
 }
