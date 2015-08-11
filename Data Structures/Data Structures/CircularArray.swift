@@ -149,7 +149,7 @@ extension CircularArray: MutableCollectionType {
     }
     
     func generate() -> CircularArrayGenerator<T> {
-        var slices: Array<Slice<T?>> = []
+        var slices: Array<ArraySlice<T?>> = []
         if isEmpty {
             return CircularArrayGenerator(slices: slices)
         }
@@ -168,7 +168,7 @@ extension CircularArray: MutableCollectionType {
 */
 struct CircularArrayGenerator<T>: GeneratorType {
     /// Array with the sub-arrays as slices of the elements. Everything must be in reverse order for efficiency
-    var slices: Array<Slice<T?>>
+    var slices: Array<ArraySlice<T?>>
     mutating func next() -> T? {
         if slices.isEmpty {
             return nil
