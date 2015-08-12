@@ -7,11 +7,11 @@
 import Cocoa
 import XCTest
 
-// TODO: This should be a class variable, but it's not yet supported
-var nElementDeinit = 0
+var nElementsDeinitialized = 0
 
-class QueueTests: XCTestCase {
+class DataStructuresTests: XCTestCase {
     
+    // Size of the arrays for testing
     let testLength = 100
     
     override func setUp() {
@@ -26,8 +26,8 @@ class QueueTests: XCTestCase {
         // Test pushBack()
         for element in 1...testLength {
             container.pushBack(element)
-            assert(container.count == element, "BidirectionalContainer should have \(element) elements")
-            assert(!container.isEmpty, "BidirectionalContainer should not be empty")
+            assert(container.count == element, "Container should have \(element) elements")
+            assert(!container.isEmpty, "Container should not be empty")
             assert(container.back == element, "Bad front")
             assert(container.front == 1, "Bad back")
         }
@@ -42,8 +42,8 @@ class QueueTests: XCTestCase {
         for element in reverse(1...testLength) {
             container.pushFront(element)
             let count = testLength - element + 1
-            assert(container.count == count, "Queue should have \(count) elements")
-            assert(!container.isEmpty, "Queue should not be empty")
+            assert(container.count == count, "Container should have \(count) elements")
+            assert(!container.isEmpty, "Container should not be empty")
             assert(container.back == testLength, "Bad back")
             assert(container.front == element, "Bad front")
         }
@@ -57,15 +57,15 @@ class QueueTests: XCTestCase {
         for element in reverse(2...testLength) {
             let popped = container.popBack()
             assert(popped! == element, "Bad popFront() element")
-            assert(container.count == element - 1, "Queue should have \(element) elements")
-            assert(!container.isEmpty, "Queue should not be empty")
+            assert(container.count == element - 1, "Container should have \(element) elements")
+            assert(!container.isEmpty, "Container should not be empty")
             assert(container.back == element - 1, "Bad back")
             assert(container.front == 1, "Bad front")
         }
         let popped = container.popBack()
         assert(popped == 1, "Bad popFront() element")
-        assert(container.count == 0, "Queue should have 0 elements")
-        assert(container.isEmpty, "Queue should be empty")
+        assert(container.count == 0, "Container should have 0 elements")
+        assert(container.isEmpty, "Container should be empty")
         assert(container.front == nil, "Bad front")
         assert(container.back == nil, "Bad back")
         
@@ -82,15 +82,15 @@ class QueueTests: XCTestCase {
             let popped = container.popFront()
             assert(popped! == element, "Bad popFront() element")
             let revelement = testLength - element
-            assert(container.count == revelement, "Queue should have \(revelement) elements")
-            assert(!container.isEmpty, "Queue should not be empty")
+            assert(container.count == revelement, "Container should have \(revelement) elements")
+            assert(!container.isEmpty, "Container should not be empty")
             assert(container.back == testLength, "Bad back")
             assert(container.front == element + 1, "Bad front")
         }
         let popped = container.popFront()
         assert(popped == testLength, "Bad popFront() element")
-        assert(container.count == 0, "Queue should have 0 elements")
-        assert(container.isEmpty, "Queue should be empty")
+        assert(container.count == 0, "Container should have 0 elements")
+        assert(container.isEmpty, "Container should be empty")
         assert(container.front == nil, "Bad front")
         assert(container.back == nil, "Bad back")
         
@@ -124,7 +124,7 @@ class QueueTests: XCTestCase {
      */
     func doubleEndedContainerTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
         assert(container.count == 0, "Count should be zero")
-        assert(container.isEmpty, "Queue should be empty")
+        assert(container.isEmpty, "Container should be empty")
         
         // Try all combinations of push/pop back/front
         doubleEndedContainerPushBackTest(&container)
@@ -146,10 +146,10 @@ class QueueTests: XCTestCase {
             container.pushFront(1)
         }
         assert(container.count > 0, "Count should be zero")
-        assert(!container.isEmpty, "Queue should be empty")
+        assert(!container.isEmpty, "Container should be empty")
         container.removeAll()
         assert(container.count == 0, "Count should be zero")
-        assert(container.isEmpty, "Queue should be empty")
+        assert(container.isEmpty, "Container should be empty")
     }
     
     func testCircularArray() {
@@ -194,7 +194,7 @@ class QueueTests: XCTestCase {
     
     class TestElement {
         deinit {
-            ++nElementDeinit
+            ++nElementsDeinitialized
         }
     }
     
@@ -204,13 +204,13 @@ class QueueTests: XCTestCase {
         
         // Test that all objects are deinitialized on removeAll()
         var llist2 = LinkedList<TestElement>()
-        nElementDeinit = 0
+        nElementsDeinitialized = 0
         for _ in 1...testLength {
             llist2.pushBack(TestElement())
         }
 
         llist2.removeAll()
-        assert(nElementDeinit == testLength, "Wrong number of deinitializers")
+        assert(nElementsDeinitialized == testLength, "Wrong number of deinitializers")
     }
     
     func testLinkedListPerformance() {
