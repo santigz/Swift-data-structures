@@ -194,7 +194,7 @@ extension CircularArray: CustomStringConvertible, CustomDebugStringConvertible {
 /**
     Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method. This extension exists to enable polymorphism.
 */
-extension CircularArray: Container, Queue, Deque, Stack {}
+//extension CircularArray: Container, Queue, Deque, Stack {}
 
 //extension CircularArray: Equatable {}
 //func ==<T> (lhs: CircularArray<T>, rhs: CircularArray<T>) -> Bool {
