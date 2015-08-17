@@ -27,7 +27,7 @@ class LinkedListElement<T> {
     }
 }
 
-extension LinkedListElement: Printable, DebugPrintable {
+extension LinkedListElement: CustomStringConvertible, CustomDebugStringConvertible {
     var description: String {
         // How can we call `value.description` when possible?
         return "LinkedListElement: \(value)"
@@ -181,13 +181,13 @@ struct LinkedListGenerator<T>: GeneratorType {
         if frontElement == nil {
             return nil
         }
-        var ret = frontElement!.value
+        let ret = frontElement!.value
         frontElement = frontElement!.back
         return ret
     }
 }
 
-extension LinkedList: Printable, DebugPrintable {
+extension LinkedList: CustomStringConvertible, CustomDebugStringConvertible {
     var description: String {
         var desc = "LinkedList = \(self.count) items {"
         var element = linkedFront
@@ -213,5 +213,5 @@ extension LinkedList: Printable, DebugPrintable {
 /**
     Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method. This extension exists to enable polymorphism.
 */
-extension LinkedList: Queue, Deque, Stack {
+extension LinkedList: Container, Queue, Deque, Stack {
 }

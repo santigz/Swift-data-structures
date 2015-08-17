@@ -89,7 +89,7 @@ class CircularArray<T>: DoubleEndedContainer {
         if isEmpty {
             return nil
         }
-        var result = array[backIdx]
+        let result = array[backIdx]
         array[backIdx] = nil
         --count
         // The last element enqueued must match for back and front
@@ -103,7 +103,7 @@ class CircularArray<T>: DoubleEndedContainer {
         if isEmpty {
             return nil
         }
-        var result = array[frontIdx]
+        let result = array[frontIdx]
         array[frontIdx] = nil
         --count
         // The last element enqueued must match for back and front
@@ -154,10 +154,10 @@ extension CircularArray: MutableCollectionType {
             return CircularArrayGenerator(slices: slices)
         }
         if backIdx > frontIdx {
-            slices.append(array[frontIdx...backIdx].reverse())
+            slices.append(ArraySlice(array[frontIdx...backIdx].reverse()))
         } else {
-            slices.append(array[0...backIdx].reverse())
-            slices.append(array[frontIdx..<capacity].reverse())
+            slices.append(ArraySlice(array[0...backIdx].reverse()))
+            slices.append(ArraySlice(array[frontIdx..<capacity].reverse()))
         }
         return CircularArrayGenerator(slices: slices)
     }
@@ -173,7 +173,7 @@ struct CircularArrayGenerator<T>: GeneratorType {
         if slices.isEmpty {
             return nil
         }
-        var ret = slices[slices.count - 1].removeLast()
+        let ret = slices[slices.count - 1].removeLast()
         if slices[slices.count - 1].isEmpty {
             slices.removeLast()
         }
@@ -182,7 +182,7 @@ struct CircularArrayGenerator<T>: GeneratorType {
 }
 
 
-extension CircularArray: Printable, DebugPrintable {
+extension CircularArray: CustomStringConvertible, CustomDebugStringConvertible {
     var description: String {
         return "CircularArray: " + array.description
     }
@@ -194,7 +194,7 @@ extension CircularArray: Printable, DebugPrintable {
 /**
     Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method. This extension exists to enable polymorphism.
 */
-extension CircularArray: Queue, Deque, Stack {}
+extension CircularArray: Container, Queue, Deque, Stack {}
 
 //extension CircularArray: Equatable {}
 //func ==<T> (lhs: CircularArray<T>, rhs: CircularArray<T>) -> Bool {

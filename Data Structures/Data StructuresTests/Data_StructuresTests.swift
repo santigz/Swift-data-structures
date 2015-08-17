@@ -39,7 +39,7 @@ class DataStructuresTests: XCTestCase {
     */
     func doubleEndedContainerPushFrontTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
         // Test pushFront()
-        for element in reverse(1...testLength) {
+        for element in Array((1...testLength).reverse()) {
             container.pushFront(element)
             let count = testLength - element + 1
             assert(container.count == count, "Container should have \(count) elements")
@@ -54,7 +54,7 @@ class DataStructuresTests: XCTestCase {
     */
     func doubleEndedContainerPopBackTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
         // Test popBack()
-        for element in reverse(2...testLength) {
+        for element in Array((2...testLength).reverse()) {
             let popped = container.popBack()
             assert(popped! == element, "Bad popFront() element")
             assert(container.count == element - 1, "Container should have \(element) elements")
@@ -181,7 +181,7 @@ class DataStructuresTests: XCTestCase {
     func testCircularArrayPerformance() {
         self.measureBlock() {
             let length = 1000
-            var circarray = CircularArray<Int>(capacity: length)
+            let circarray = CircularArray<Int>(capacity: length)
             for _ in 1...length {
                 circarray.pushFront(1)
             }
@@ -203,7 +203,7 @@ class DataStructuresTests: XCTestCase {
         doubleEndedContainerTest(&llist)
         
         // Test that all objects are deinitialized on removeAll()
-        var llist2 = LinkedList<TestElement>()
+        let llist2 = LinkedList<TestElement>()
         nElementsDeinitialized = 0
         for _ in 1...testLength {
             llist2.pushBack(TestElement())
@@ -216,7 +216,7 @@ class DataStructuresTests: XCTestCase {
     func testLinkedListPerformance() {
         self.measureBlock() {
             let length = 1000
-            var llist = LinkedList<Int>()
+            let llist = LinkedList<Int>()
             for _ in 1...length {
                 llist.pushFront(1)
             }
