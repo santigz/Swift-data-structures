@@ -3,123 +3,225 @@
 //
 //  Copyright (c) 2015 Santiago González.
 //
-// Notes for Swift beginners:
-// - SequenceType protocol (formerly called Sequence) makes possible the use of for-in loop.
-//   Read http://robots.thoughtbot.com/swift-sequences and http://schani.wordpress.com/2014/06/06/generators-in-swift/
-//
 
 import Foundation
 
+/**
+    Container that inserts and removes elements in LIFO (last-in first-out) order.
+    New elements are added at the tail and removed from the head.
+    Subscripting and looping go from front to back.
+*/
+protocol QueueType: Container {
+    typealias Element
+    
+    /// Element at the back the container
+    var back: Element? { get }
+    
+    /// Element at the front the container
+    var front: Element? { get }
+    
+    /// Enqueue a new element at the tail
+    mutating func pushBack(item: Element)
+    
+    /// Dequeue an element from the head, returning it
+    mutating func popFront() -> Element?
+}
+
 
 /**
-    Container that inserts and removes elements in LIFO (last-in first-out) order. New elements are added at the tail and removed from the head. Subscripting and looping go from front to back.
-    
-    You can choose if the queue will behave as a linked list or a circular array.
-
-
-    ## Use
-
-    Create a Queue as a linked list:
-
-        var queue = Queue<LinkedList<Int>>()!
-
-    Create a Queue as a circular array:
-
-        var queue = Queue<CircularArray<Int>>(capacity: 10)!
-    
-    Choosing the wrong initializer returns `nil`:
-
-        Queue<LinkedList<Int>>(capacity: 10)  // returns nil
-        Queue<CircularArray<Int>>() // returns nil
-
-
-
-    ## Implementation details
-
-    Queue can be implemented as CircularArray or LinkedList, but we don't want Queue to inherit from them so that it's more clear that Queue is only intended to be used as a LIFO: Queue shouldn't allow `pushFront` and `popBack`.
-
-    However, Queue is just a thin wrapper for a `DoubleEndedContainer`, so if you need
-
-    It's somewhat tricky to make this in Swift:
-
-    - Queue can't inherit from `DoubleEndedContainer` because it has associated types.
-    - Queue can't have `var container: DoubleEndedContainer` because of associated types.
-    
-    But we can have `DoubleEndedContainer` as a generic type. The drawback is that we can't have at compilation time the concrete type of the container. This means that our initializers may fail and return nil, but that's an acceptable consequence.
-
+    The default implementation of a Queue is as a linked list.
+    You can change the default behaviour by changin the base class for `CircularArrayQueue`.
  */
-class Queue<C: DoubleEndedContainer>: Container {
+class Queue<T>: LinkedListQueue<T> {}
+
+
+/**
+    Implementation of a queue as a circular array. The whole implementation is delegated to `CircularArray`. We do not inherit from it to avoid exposing its whole implementation as a safety mechanism (queues are not expected to allow `pushFront()` or `popBack()`).
+ */
+class CircularArrayQueue<T>: QueueType {
     
-    // Basic type of the elements
-    typealias Element = C.Generator.Element
+    private var delegate: CircularArray<T>
     
-    /// The container of the queue. It's optional because initializers may fail, but once the queue is initialized, the container is never nil.
-    var container: C? = nil
+    /// Initialize as a new circular array with a given capacity
+    init(capacity: Int) {
+        delegate = CircularArray<T>(capacity: capacity)
+    }
     
-    /// Initializer for LinkedList
-    init?() {
-        self.container = LinkedList<Element>() as? C
-        if self.container == nil {
-            return nil
+    /// Initialize from a circular array
+    init(circularArray: CircularArray<T>) {
+        delegate = circularArray
+    }
+    
+    /// Returns the underlying circular array
+    var circularArray: CircularArray<T> {
+        get {
+            return delegate
         }
     }
     
-    /// Initializer for CircularArray
-    init?(capacity: Int) {
-        self.container = CircularArray<Element>(capacity: capacity) as? C
-        if self.container == nil {
-            return nil
-        }
-    }
+    // MARK: Container
     
-    /// Whether the queue is empty
+    /// Whether the container is empty
     var isEmpty: Bool {
-        return container!.isEmpty
+        return delegate.isEmpty
     }
     
-    /// Number of elements in the queue
+    /// Number of elements in the container
     var count: Int {
-        return container!.count
+        return delegate.count
     }
+    
+    /// Remove all elements in the container
+    func removeAll() {
+        delegate.removeAll()
+    }
+    
+    
+    // MARK: Queue
     
     /// Element at the back the queue
-    var back: Element? {
-        return container!.back
+    var back: T? {
+        return delegate.back
     }
     
     /// Element at the front the queue
-    var front: Element? {
-        return container!.front
-    }
-    
-    /// Remove all elements in the queue
-    func removeAll() {
-        container!.removeAll()
+    var front: T? {
+        return delegate.front
     }
     
     /// Enqueue a new element at the tail
-    func pushBack(item: Element) {
-        container!.pushBack(item)
+    func pushBack(item: T) {
+        delegate.pushBack(item)
     }
     
     /// Dequeue an element from the head, returning it
-    func popFront() -> Element? {
-        return container!.popFront()
+    func popFront() -> T? {
+        return delegate.popFront()
     }
 }
 
-/**
-    Double ended queue.
-    A queue allowing push and pop at front and back.
- */
-class Dequeue<C: DoubleEndedContainer>: Queue<C> {
-    /// Insert a new element at the front
-    func pushFront(item: T) {
-        container!.pushFront(item)
-    }
 
-    /// Dequeue an element from the tail, returning it
-    func popBack() -> T? {
-        return container!.popBack()
+/**
+    Make CircularArrayQueue iterable.
+*/
+extension CircularArrayQueue: MutableCollectionType {
+    /// Always zero
+    var startIndex: Int {
+        return delegate.startIndex
+    }
+    
+    /// Equal to the number of elements in the array
+    var endIndex: Int {
+        return delegate.endIndex
+    }
+    
+    /// The position must be within bounds. Otherwise it might crash. Complexity: O(1)
+    subscript (position: Int) -> T {
+        get {
+            return delegate[position]
+        }
+        set {
+            delegate[position] = newValue
+        }
+    }
+    
+    func generate() -> CircularArrayGenerator<T> {
+        return delegate.generate()
+    }
+}
+
+
+/**
+    Implementation of a queue as a circular array. The whole implementation is delegated to `CircularArray`. We do not inherit from it to avoid exposing its whole implementation as a safety mechanism (queues are not expected to allow `pushFront()` or `popBack()`).
+*/
+class LinkedListQueue<T>: QueueType {
+    
+    private var delegate: LinkedList<T>
+    
+    /// Initialize as a new linked list
+    init(capacity: Int) {
+        delegate = LinkedList<T>()
+    }
+    
+    /// Initialize from a linked list
+    init(linkedList: LinkedList<T>) {
+        delegate = linkedList
+    }
+    
+    /// Returns the underlying linked list
+    var linkedList: LinkedList<T> {
+        get {
+            return delegate
+        }
+    }
+    
+    // MARK: Container
+    
+    /// Whether the container is empty
+    var isEmpty: Bool {
+        return delegate.isEmpty
+    }
+    
+    /// Number of elements in the container
+    var count: Int {
+        return delegate.count
+    }
+    
+    /// Remove all elements in the container
+    func removeAll() {
+        delegate.removeAll()
+    }
+    
+    
+    // MARK: Queue
+    
+    /// Element at the back the queue
+    var back: T? {
+        return delegate.back
+    }
+    
+    /// Element at the front the queue
+    var front: T? {
+        return delegate.front
+    }
+    
+    /// Enqueue a new element at the tail
+    func pushBack(item: T) {
+        delegate.pushBack(item)
+    }
+    
+    /// Dequeue an element from the head, returning it
+    func popFront() -> T? {
+        return delegate.popFront()
+    }
+}
+
+
+/**
+    Make LinkedListQueue iterable.
+*/
+extension LinkedListQueue: MutableCollectionType {
+    /// Always zero
+    var startIndex: Int {
+        return delegate.startIndex
+    }
+    
+    /// Equal to the number of elements in the array
+    var endIndex: Int {
+        return delegate.endIndex
+    }
+    
+    /// The position must be within bounds. Otherwise it might crash. Complexity: O(1)
+    subscript (position: Int) -> T {
+        get {
+            return delegate[position]
+        }
+        set {
+            delegate[position] = newValue
+        }
+    }
+    
+    func generate() -> LinkedListGenerator<T> {
+        return delegate.generate()
     }
 }
