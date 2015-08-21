@@ -7,9 +7,7 @@
 import Foundation
 
 /**
-    Container that inserts and removes elements in LIFO (last-in first-out) order.
-    New elements are added at the tail and removed from the head.
-    Subscripting and looping go from front to back.
+    Container that inserts and removes elements in LIFO (last-in first-out) order. New elements are added at the tail and removed from the head.
 */
 protocol QueueType: Container {
     typealias Element
@@ -29,14 +27,14 @@ protocol QueueType: Container {
 
 
 /**
-    The default implementation of a Queue is as a linked list.
-    You can change the default behaviour by changin the base class for `CircularArrayQueue`.
+    The default implementation of a Queue is a linked list.
+    You can change the default behaviour by changing the superclass to `CircularArrayQueue`.
  */
 class Queue<T>: LinkedListQueue<T> {}
 
 
 /**
-    Implementation of a queue as a circular array. The whole implementation is delegated to `CircularArray`. We do not inherit from it to avoid exposing its whole implementation as a safety mechanism (queues are not expected to allow `pushFront()` or `popBack()`).
+    Implementation of a queue as a circular array. The whole implementation is delegated to `CircularArray`. We do not inherit from it to avoid exposing its whole implementation as a safety mechanism (queues are not expected to allow `pushFront()` or `popBack()`). Subscripting and looping go from front to back.
  */
 class CircularArrayQueue<T>: QueueType {
     
@@ -132,7 +130,7 @@ extension CircularArrayQueue: MutableCollectionType {
 
 
 /**
-    Implementation of a queue as a circular array. The whole implementation is delegated to `CircularArray`. We do not inherit from it to avoid exposing its whole implementation as a safety mechanism (queues are not expected to allow `pushFront()` or `popBack()`).
+    Implementation of a queue as a circular array. The whole implementation is delegated to `LinkedList`. We do not inherit from it to avoid exposing its whole implementation as a safety mechanism (queues are not expected to allow `pushFront()` or `popBack()`).
 */
 class LinkedListQueue<T>: QueueType {
     
