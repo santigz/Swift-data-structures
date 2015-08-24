@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6C1586DC1B753E2B00BFF84B /* Data Structures.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C1586DB1B753E2B00BFF84B /* Data Structures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C1586E21B753E2B00BFF84B /* DataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C1586D61B753E2B00BFF84B /* DataStructures.framework */; };
-		6C1586E91B753E2B00BFF84B /* Data_StructuresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1586E81B753E2B00BFF84B /* Data_StructuresTests.swift */; };
-		6C1586F31B7541BB00BFF84B /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1586F21B7541BB00BFF84B /* Queue.swift */; };
-		6C1586F41B7541BB00BFF84B /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1586F21B7541BB00BFF84B /* Queue.swift */; };
-		6CABA94B1B873C120081478A /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CABA94A1B873C120081478A /* Deque.swift */; };
-		6CABA94C1B873C120081478A /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CABA94A1B873C120081478A /* Deque.swift */; };
-		6CE815951B76251A00E35A8B /* CircularArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE815911B76251A00E35A8B /* CircularArray.swift */; };
-		6CE815961B76251A00E35A8B /* CircularArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE815911B76251A00E35A8B /* CircularArray.swift */; };
-		6CE815971B76251A00E35A8B /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE815921B76251A00E35A8B /* Container.swift */; };
-		6CE815981B76251A00E35A8B /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE815921B76251A00E35A8B /* Container.swift */; };
-		6CE815991B76251A00E35A8B /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE815931B76251A00E35A8B /* LinkedList.swift */; };
-		6CE8159A1B76251A00E35A8B /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE815931B76251A00E35A8B /* LinkedList.swift */; };
-		6CE8159B1B76251A00E35A8B /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE815941B76251A00E35A8B /* Stack.swift */; };
-		6CE8159C1B76251A00E35A8B /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE815941B76251A00E35A8B /* Stack.swift */; };
+		6C1586E91B753E2B00BFF84B /* DataStructuresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1586E81B753E2B00BFF84B /* DataStructuresTests.swift */; };
+		6CC71EF61B8B331200B00903 /* CircularArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EEF1B8B331200B00903 /* CircularArray.swift */; };
+		6CC71EF71B8B331200B00903 /* CircularArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EEF1B8B331200B00903 /* CircularArray.swift */; };
+		6CC71EF81B8B331200B00903 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF01B8B331200B00903 /* Container.swift */; };
+		6CC71EF91B8B331200B00903 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF01B8B331200B00903 /* Container.swift */; };
+		6CC71EFA1B8B331200B00903 /* DataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC71EF11B8B331200B00903 /* DataStructures.h */; };
+		6CC71EFB1B8B331200B00903 /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF21B8B331200B00903 /* Deque.swift */; };
+		6CC71EFC1B8B331200B00903 /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF21B8B331200B00903 /* Deque.swift */; };
+		6CC71EFD1B8B331200B00903 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF31B8B331200B00903 /* LinkedList.swift */; };
+		6CC71EFE1B8B331200B00903 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF31B8B331200B00903 /* LinkedList.swift */; };
+		6CC71EFF1B8B331200B00903 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF41B8B331200B00903 /* Queue.swift */; };
+		6CC71F001B8B331200B00903 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF41B8B331200B00903 /* Queue.swift */; };
+		6CC71F011B8B331200B00903 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF51B8B331200B00903 /* Stack.swift */; };
+		6CC71F021B8B331200B00903 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF51B8B331200B00903 /* Stack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,17 +36,17 @@
 
 /* Begin PBXFileReference section */
 		6C1586D61B753E2B00BFF84B /* DataStructures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataStructures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C1586DA1B753E2B00BFF84B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6C1586DB1B753E2B00BFF84B /* Data Structures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Data Structures.h"; sourceTree = "<group>"; };
-		6C1586E11B753E2B00BFF84B /* Data StructuresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Data StructuresTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C1586E11B753E2B00BFF84B /* DataStructuresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataStructuresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1586E71B753E2B00BFF84B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6C1586E81B753E2B00BFF84B /* Data_StructuresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_StructuresTests.swift; sourceTree = "<group>"; };
-		6C1586F21B7541BB00BFF84B /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
-		6CABA94A1B873C120081478A /* Deque.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deque.swift; sourceTree = "<group>"; };
-		6CE815911B76251A00E35A8B /* CircularArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularArray.swift; sourceTree = "<group>"; };
-		6CE815921B76251A00E35A8B /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
-		6CE815931B76251A00E35A8B /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
-		6CE815941B76251A00E35A8B /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		6C1586E81B753E2B00BFF84B /* DataStructuresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructuresTests.swift; sourceTree = "<group>"; };
+		6CC71EEF1B8B331200B00903 /* CircularArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularArray.swift; path = DataStructures/CircularArray.swift; sourceTree = SOURCE_ROOT; };
+		6CC71EF01B8B331200B00903 /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Container.swift; path = DataStructures/Container.swift; sourceTree = SOURCE_ROOT; };
+		6CC71EF11B8B331200B00903 /* DataStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataStructures.h; path = DataStructures/DataStructures.h; sourceTree = SOURCE_ROOT; };
+		6CC71EF21B8B331200B00903 /* Deque.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deque.swift; path = DataStructures/Deque.swift; sourceTree = SOURCE_ROOT; };
+		6CC71EF31B8B331200B00903 /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkedList.swift; path = DataStructures/LinkedList.swift; sourceTree = SOURCE_ROOT; };
+		6CC71EF41B8B331200B00903 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = DataStructures/Queue.swift; sourceTree = SOURCE_ROOT; };
+		6CC71EF51B8B331200B00903 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = DataStructures/Stack.swift; sourceTree = SOURCE_ROOT; };
+		6CC71F031B8B332A00B00903 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = DataStructures/Info.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +71,8 @@
 		6C1586CC1B753E2B00BFF84B = {
 			isa = PBXGroup;
 			children = (
-				6C1586D81B753E2B00BFF84B /* Data Structures */,
-				6C1586E51B753E2B00BFF84B /* Data StructuresTests */,
+				6C1586D81B753E2B00BFF84B /* DataStructures */,
+				6C1586E51B753E2B00BFF84B /* DataStructuresTests */,
 				6C1586D71B753E2B00BFF84B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,41 +81,41 @@
 			isa = PBXGroup;
 			children = (
 				6C1586D61B753E2B00BFF84B /* DataStructures.framework */,
-				6C1586E11B753E2B00BFF84B /* Data StructuresTests.xctest */,
+				6C1586E11B753E2B00BFF84B /* DataStructuresTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6C1586D81B753E2B00BFF84B /* Data Structures */ = {
+		6C1586D81B753E2B00BFF84B /* DataStructures */ = {
 			isa = PBXGroup;
 			children = (
-				6C1586F21B7541BB00BFF84B /* Queue.swift */,
-				6CABA94A1B873C120081478A /* Deque.swift */,
-				6CE815911B76251A00E35A8B /* CircularArray.swift */,
-				6CE815921B76251A00E35A8B /* Container.swift */,
-				6CE815931B76251A00E35A8B /* LinkedList.swift */,
-				6CE815941B76251A00E35A8B /* Stack.swift */,
-				6C1586DB1B753E2B00BFF84B /* Data Structures.h */,
+				6CC71EEF1B8B331200B00903 /* CircularArray.swift */,
+				6CC71EF01B8B331200B00903 /* Container.swift */,
+				6CC71EF11B8B331200B00903 /* DataStructures.h */,
+				6CC71EF21B8B331200B00903 /* Deque.swift */,
+				6CC71EF31B8B331200B00903 /* LinkedList.swift */,
+				6CC71EF41B8B331200B00903 /* Queue.swift */,
+				6CC71EF51B8B331200B00903 /* Stack.swift */,
 				6C1586D91B753E2B00BFF84B /* Supporting Files */,
 			);
-			path = "Data Structures";
+			path = DataStructures;
 			sourceTree = "<group>";
 		};
 		6C1586D91B753E2B00BFF84B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6C1586DA1B753E2B00BFF84B /* Info.plist */,
+				6CC71F031B8B332A00B00903 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		6C1586E51B753E2B00BFF84B /* Data StructuresTests */ = {
+		6C1586E51B753E2B00BFF84B /* DataStructuresTests */ = {
 			isa = PBXGroup;
 			children = (
-				6C1586E81B753E2B00BFF84B /* Data_StructuresTests.swift */,
+				6C1586E81B753E2B00BFF84B /* DataStructuresTests.swift */,
 				6C1586E61B753E2B00BFF84B /* Supporting Files */,
 			);
-			path = "Data StructuresTests";
+			path = DataStructuresTests;
 			sourceTree = "<group>";
 		};
 		6C1586E61B753E2B00BFF84B /* Supporting Files */ = {
@@ -133,7 +133,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C1586DC1B753E2B00BFF84B /* Data Structures.h in Headers */,
+				6CC71EFA1B8B331200B00903 /* DataStructures.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,9 +158,9 @@
 			productReference = 6C1586D61B753E2B00BFF84B /* DataStructures.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		6C1586E01B753E2B00BFF84B /* Data StructuresTests */ = {
+		6C1586E01B753E2B00BFF84B /* DataStructuresTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6C1586EF1B753E2B00BFF84B /* Build configuration list for PBXNativeTarget "Data StructuresTests" */;
+			buildConfigurationList = 6C1586EF1B753E2B00BFF84B /* Build configuration list for PBXNativeTarget "DataStructuresTests" */;
 			buildPhases = (
 				6C1586DD1B753E2B00BFF84B /* Sources */,
 				6C1586DE1B753E2B00BFF84B /* Frameworks */,
@@ -171,9 +171,9 @@
 			dependencies = (
 				6C1586E41B753E2B00BFF84B /* PBXTargetDependency */,
 			);
-			name = "Data StructuresTests";
+			name = DataStructuresTests;
 			productName = "Data StructuresTests";
-			productReference = 6C1586E11B753E2B00BFF84B /* Data StructuresTests.xctest */;
+			productReference = 6C1586E11B753E2B00BFF84B /* DataStructuresTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -194,7 +194,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6C1586D01B753E2B00BFF84B /* Build configuration list for PBXProject "Data Structures" */;
+			buildConfigurationList = 6C1586D01B753E2B00BFF84B /* Build configuration list for PBXProject "DataStructures" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -207,7 +207,7 @@
 			projectRoot = "";
 			targets = (
 				6C1586D51B753E2B00BFF84B /* DataStructures */,
-				6C1586E01B753E2B00BFF84B /* Data StructuresTests */,
+				6C1586E01B753E2B00BFF84B /* DataStructuresTests */,
 			);
 		};
 /* End PBXProject section */
@@ -234,12 +234,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CE815951B76251A00E35A8B /* CircularArray.swift in Sources */,
-				6CE8159B1B76251A00E35A8B /* Stack.swift in Sources */,
-				6CABA94B1B873C120081478A /* Deque.swift in Sources */,
-				6CE815971B76251A00E35A8B /* Container.swift in Sources */,
-				6CE815991B76251A00E35A8B /* LinkedList.swift in Sources */,
-				6C1586F31B7541BB00BFF84B /* Queue.swift in Sources */,
+				6CC71EF61B8B331200B00903 /* CircularArray.swift in Sources */,
+				6CC71EFD1B8B331200B00903 /* LinkedList.swift in Sources */,
+				6CC71EFF1B8B331200B00903 /* Queue.swift in Sources */,
+				6CC71F011B8B331200B00903 /* Stack.swift in Sources */,
+				6CC71EFB1B8B331200B00903 /* Deque.swift in Sources */,
+				6CC71EF81B8B331200B00903 /* Container.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,13 +247,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CE8159A1B76251A00E35A8B /* LinkedList.swift in Sources */,
-				6CABA94C1B873C120081478A /* Deque.swift in Sources */,
-				6C1586E91B753E2B00BFF84B /* Data_StructuresTests.swift in Sources */,
-				6CE8159C1B76251A00E35A8B /* Stack.swift in Sources */,
-				6CE815981B76251A00E35A8B /* Container.swift in Sources */,
-				6CE815961B76251A00E35A8B /* CircularArray.swift in Sources */,
-				6C1586F41B7541BB00BFF84B /* Queue.swift in Sources */,
+				6CC71F021B8B331200B00903 /* Stack.swift in Sources */,
+				6CC71EF71B8B331200B00903 /* CircularArray.swift in Sources */,
+				6C1586E91B753E2B00BFF84B /* DataStructuresTests.swift in Sources */,
+				6CC71F001B8B331200B00903 /* Queue.swift in Sources */,
+				6CC71EF91B8B331200B00903 /* Container.swift in Sources */,
+				6CC71EFC1B8B331200B00903 /* Deque.swift in Sources */,
+				6CC71EFE1B8B331200B00903 /* LinkedList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +363,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "Data Structures/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/DataStructures/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sangonz.$(PRODUCT_NAME:rfc1034identifier)";
@@ -383,7 +383,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "Data Structures/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/DataStructures/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sangonz.$(PRODUCT_NAME:rfc1034identifier)";
@@ -407,7 +407,7 @@
 				INFOPLIST_FILE = "Data StructuresTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sangonz.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DataStructuresTests;
 			};
 			name = Debug;
 		};
@@ -422,14 +422,14 @@
 				INFOPLIST_FILE = "Data StructuresTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sangonz.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = DataStructuresTests;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6C1586D01B753E2B00BFF84B /* Build configuration list for PBXProject "Data Structures" */ = {
+		6C1586D01B753E2B00BFF84B /* Build configuration list for PBXProject "DataStructures" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6C1586EA1B753E2B00BFF84B /* Debug */,
@@ -447,7 +447,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6C1586EF1B753E2B00BFF84B /* Build configuration list for PBXNativeTarget "Data StructuresTests" */ = {
+		6C1586EF1B753E2B00BFF84B /* Build configuration list for PBXNativeTarget "DataStructuresTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6C1586F01B753E2B00BFF84B /* Debug */,
