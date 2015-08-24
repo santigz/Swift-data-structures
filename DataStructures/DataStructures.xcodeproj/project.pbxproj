@@ -13,7 +13,7 @@
 		6CC71EF71B8B331200B00903 /* CircularArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EEF1B8B331200B00903 /* CircularArray.swift */; };
 		6CC71EF81B8B331200B00903 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF01B8B331200B00903 /* Container.swift */; };
 		6CC71EF91B8B331200B00903 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF01B8B331200B00903 /* Container.swift */; };
-		6CC71EFA1B8B331200B00903 /* DataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC71EF11B8B331200B00903 /* DataStructures.h */; };
+		6CC71EFA1B8B331200B00903 /* DataStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC71EF11B8B331200B00903 /* DataStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CC71EFB1B8B331200B00903 /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF21B8B331200B00903 /* Deque.swift */; };
 		6CC71EFC1B8B331200B00903 /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF21B8B331200B00903 /* Deque.swift */; };
 		6CC71EFD1B8B331200B00903 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF31B8B331200B00903 /* LinkedList.swift */; };
@@ -30,7 +30,7 @@
 			containerPortal = 6C1586CD1B753E2B00BFF84B /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6C1586D51B753E2B00BFF84B;
-			remoteInfo = "Data Structures";
+			remoteInfo = "DataStructures";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -154,7 +154,7 @@
 			dependencies = (
 			);
 			name = DataStructures;
-			productName = "Data Structures";
+			productName = "DataStructures";
 			productReference = 6C1586D61B753E2B00BFF84B /* DataStructures.framework */;
 			productType = "com.apple.product-type.framework";
 		};
@@ -172,7 +172,7 @@
 				6C1586E41B753E2B00BFF84B /* PBXTargetDependency */,
 			);
 			name = DataStructuresTests;
-			productName = "Data StructuresTests";
+			productName = "DataStructuresTests";
 			productReference = 6C1586E11B753E2B00BFF84B /* DataStructuresTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -404,7 +404,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Data StructuresTests/Info.plist";
+				INFOPLIST_FILE = "DataStructuresTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sangonz.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DataStructuresTests;
@@ -419,7 +419,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Data StructuresTests/Info.plist";
+				INFOPLIST_FILE = "DataStructuresTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sangonz.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DataStructuresTests;
