@@ -10,19 +10,18 @@ import Foundation
     Container that inserts and removes elements in LIFO (last-in first-out) order. New elements are added at the tail and removed from the head.
 */
 protocol QueueType: Container {
-    typealias Element
     
     /// Element at the back the container
-    var back: Element? { get }
+    var back: Self.Generator.Element? { get }
     
     /// Element at the front the container
-    var front: Element? { get }
+    var front: Self.Generator.Element? { get }
     
     /// Enqueue a new element at the tail
-    mutating func pushBack(item: Element)
+    mutating func pushBack(item: Self.Generator.Element)
     
     /// Dequeue an element from the head, returning it
-    mutating func popFront() -> Element?
+    mutating func popFront() -> Self.Generator.Element?
 }
 
 
@@ -38,7 +37,7 @@ class Queue<T>: LinkedListQueue<T> {}
  */
 class CircularArrayQueue<T>: QueueType {
     
-    private var delegate: CircularArray<T>
+    internal var delegate: CircularArray<T>
     
     /// Initialize as a new circular array with a given capacity
     init(capacity: Int) {
@@ -134,7 +133,7 @@ extension CircularArrayQueue: MutableCollectionType {
 */
 class LinkedListQueue<T>: QueueType {
     
-    private var delegate: LinkedList<T>
+    internal var delegate: LinkedList<T>
     
     /// Initialize as a new linked list
     init(capacity: Int) {
