@@ -152,29 +152,19 @@ class DataStructuresTests: XCTestCase {
         assert(container.isEmpty, "Container should be empty")
     }
     
-    
-    func queueTest<R: DoubleEndedContainer, T: Queue<R> where R.Generator.Element == Int, T.Element == Int>(queue: T) {
-        
-        let x = queue.count
-        
+    func queueTest<T: QueueType where T.Generator.Element == Int>(inout queue: T) {
         assert(queue.count == 0, "Count should be zero")
         assert(queue.isEmpty, "Container should be empty")
+        
+        assert(queue.front == nil, "Front should be nil")
+        assert(queue.back == nil, "Back should be nil")
+        assert(queue.popFront() == nil, "Front should be nil")
         
         
         
     }
     
     func testQueue() {
-        assert(Queue<CircularArray<Int>>(capacity: 3) != nil, "This initializer should not fail")
-        assert(Queue<LinkedList<Int>>() != nil, "This initializer should not fail")
-        assert(Queue<CircularArray<Int>>() == nil, "This initializer should fail")
-        assert(Queue<LinkedList<Int>>(capacity: 3) == nil, "This initializer should fail")
-        
-        let q1 = Queue<LinkedList<Int>>()!
-        doubleEndedContainerTest(&q1.container!)
-        
-        let q2 = Queue<CircularArray<Int>>(capacity: testLength)!
-        doubleEndedContainerTest(&q2.container!)
         
     }
     
