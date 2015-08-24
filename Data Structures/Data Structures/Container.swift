@@ -9,7 +9,7 @@ import Foundation
 /**
     Abstract container type with two ends: head and tail
 */
-protocol Container {
+protocol Container: MutableCollectionType {
     /// Whether the container is empty
     var isEmpty: Bool { get }
     
@@ -18,16 +18,16 @@ protocol Container {
     
     /// Remove all elements in the container
     mutating func removeAll()
+
+    // This is here to force the typealias Index to be Int
+    subscript (index: Int) -> Self.Generator.Element { get set }
 }
 
 /**
     Double ended container that can insert and remove elements at both ends (front and back).
     The container is subscriptable from the front (index zero) to the back (largest index)
 */
-protocol DoubleEndedContainer: Container, MutableCollectionType {
-    // This is here to force the typealias Index to be Int
-    subscript (index: Int) -> Self.Generator.Element { get set }
-    
+protocol DoubleEndedContainer: Container, QueueType {
     /// Element at the back of the container
     var back: Self.Generator.Element? { get set }
     

@@ -146,10 +146,26 @@ class DataStructuresTests: XCTestCase {
             container.pushFront(1)
         }
         assert(container.count > 0, "Count should be zero")
-        assert(!container.isEmpty, "Container should be empty")
+        assert(!container.isEmpty, "Container should not be empty")
         container.removeAll()
         assert(container.count == 0, "Count should be zero")
         assert(container.isEmpty, "Container should be empty")
+    }
+    
+    func queueTest<T: QueueType where T.Generator.Element == Int>(inout queue: T) {
+        assert(queue.count == 0, "Count should be zero")
+        assert(queue.isEmpty, "Container should be empty")
+        
+        assert(queue.front == nil, "Front should be nil")
+        assert(queue.back == nil, "Back should be nil")
+        assert(queue.popFront() == nil, "Front should be nil")
+        
+        
+        
+    }
+    
+    func testQueue() {
+        
     }
     
     func testCircularArray() {

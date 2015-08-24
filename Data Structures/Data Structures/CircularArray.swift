@@ -11,6 +11,8 @@ import Foundation
     ArrayQueue implements a circular queue using an array as a container.
     It can be used as Queue, Stack and BidirectionalContainer.
     It must be created with a fixed capacity that can never exceed - otherwise it crashes.
+
+    TODO: Make it dynamic so the size increases or decreases transparently.
 */
 class CircularArray<T>: DoubleEndedContainer {
     private var array: [T?]
@@ -128,7 +130,7 @@ class CircularArray<T>: DoubleEndedContainer {
 extension CircularArray: MutableCollectionType {
     /// Always zero
     var startIndex: Int {
-        return 0;
+        return 0
     }
     
     /// Equal to the number of elements in the array
@@ -194,7 +196,7 @@ extension CircularArray: CustomStringConvertible, CustomDebugStringConvertible {
 /**
     Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method. This extension exists to enable polymorphism.
 */
-extension CircularArray: Container, Queue, Deque, Stack {}
+//extension CircularArray: Container, Queue, Deque, Stack {}
 
 //extension CircularArray: Equatable {}
 //func ==<T> (lhs: CircularArray<T>, rhs: CircularArray<T>) -> Bool {

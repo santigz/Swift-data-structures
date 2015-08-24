@@ -213,5 +213,4 @@ extension LinkedList: CustomStringConvertible, CustomDebugStringConvertible {
 /**
     Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method. This extension exists to enable polymorphism.
 */
-extension LinkedList: Container, Queue, Deque, Stack {
-}
+//extension LinkedList: Container, Queue, Deque, Stack {}
