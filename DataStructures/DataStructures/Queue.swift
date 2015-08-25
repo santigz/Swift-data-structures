@@ -9,7 +9,7 @@ import Foundation
 /**
     Container that inserts and removes elements in LIFO (last-in first-out) order. New elements are added at the tail and removed from the head.
 */
-protocol QueueType: Container {
+public protocol QueueType: Container {
     
     /// Element at the back the container
     var back: Self.Generator.Element? { get }
@@ -26,26 +26,19 @@ protocol QueueType: Container {
 
 
 /**
-    The default implementation of a Queue is a linked list.
-    You can change the default behaviour by changing the superclass to `CircularArrayQueue`.
- */
-class Queue<T>: LinkedListQueue<T> {}
-
-
-/**
     Implementation of a queue as a circular array. The whole implementation is delegated to `CircularArray`. We do not inherit from it to avoid exposing its whole implementation as a safety mechanism (queues are not expected to allow `pushFront()` or `popBack()`). Subscripting and looping go from front to back.
  */
-class CircularArrayQueue<T>: QueueType {
+public struct CircularArrayQueue<T>: QueueType {
     
     internal var delegate: CircularArray<T>
     
     /// Initialize as a new circular array with a given capacity
-    init(capacity: Int) {
+    public init(capacity: Int) {
         delegate = CircularArray<T>(capacity: capacity)
     }
     
     /// Initialize from a circular array
-    init(circularArray: CircularArray<T>) {
+    public init(circularArray: CircularArray<T>) {
         delegate = circularArray
     }
     
@@ -59,17 +52,17 @@ class CircularArrayQueue<T>: QueueType {
     // MARK: Container
     
     /// Whether the container is empty
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         return delegate.isEmpty
     }
     
     /// Number of elements in the container
-    var count: Int {
+    public var count: Int {
         return delegate.count
     }
     
     /// Remove all elements in the container
-    func removeAll() {
+    public mutating func removeAll() {
         delegate.removeAll()
     }
     
@@ -77,22 +70,22 @@ class CircularArrayQueue<T>: QueueType {
     // MARK: Queue
     
     /// Element at the back the queue
-    var back: T? {
+    public var back: T? {
         return delegate.back
     }
     
     /// Element at the front the queue
-    var front: T? {
+    public var front: T? {
         return delegate.front
     }
     
     /// Enqueue a new element at the tail
-    func pushBack(item: T) {
+    public mutating func pushBack(item: T) {
         delegate.pushBack(item)
     }
     
     /// Dequeue an element from the head, returning it
-    func popFront() -> T? {
+    public mutating func popFront() -> T? {
         return delegate.popFront()
     }
 }
@@ -103,17 +96,17 @@ class CircularArrayQueue<T>: QueueType {
 */
 extension CircularArrayQueue: MutableCollectionType {
     /// Always zero
-    var startIndex: Int {
+    public var startIndex: Int {
         return delegate.startIndex
     }
     
     /// Equal to the number of elements in the array
-    var endIndex: Int {
+    public var endIndex: Int {
         return delegate.endIndex
     }
     
     /// The position must be within bounds. Otherwise it might crash. Complexity: O(1)
-    subscript (position: Int) -> T {
+    public subscript (position: Int) -> T {
         get {
             return delegate[position]
         }
@@ -122,7 +115,7 @@ extension CircularArrayQueue: MutableCollectionType {
         }
     }
     
-    func generate() -> CircularArrayGenerator<T> {
+    public func generate() -> CircularArrayGenerator<T> {
         return delegate.generate()
     }
 }
@@ -131,64 +124,63 @@ extension CircularArrayQueue: MutableCollectionType {
 /**
     Implementation of a queue as a circular array. The whole implementation is delegated to `LinkedList`. We do not inherit from it to avoid exposing its whole implementation as a safety mechanism (queues are not expected to allow `pushFront()` or `popBack()`).
 */
-class LinkedListQueue<T>: QueueType {
+public struct LinkedListQueue<T>: QueueType {
     
     internal var delegate: LinkedList<T>
     
     /// Initialize as a new linked list
-    init(capacity: Int) {
+    public init(capacity: Int) {
         delegate = LinkedList<T>()
     }
     
     /// Initialize from a linked list
-    init(linkedList: LinkedList<T>) {
+    public init(linkedList: LinkedList<T>) {
         delegate = linkedList
     }
     
     /// Returns the underlying linked list
-    var linkedList: LinkedList<T> {
+    public var linkedList: LinkedList<T> {
         get {
             return delegate
         }
     }
     
-    // MARK: Container
+    // MARK: Container protocol
     
     /// Whether the container is empty
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         return delegate.isEmpty
     }
     
     /// Number of elements in the container
-    var count: Int {
+    public var count: Int {
         return delegate.count
     }
     
     /// Remove all elements in the container
-    func removeAll() {
+    public mutating func removeAll() {
         delegate.removeAll()
     }
     
-    
-    // MARK: Queue
+    // MARK: QueueType protocol
     
     /// Element at the back the queue
-    var back: T? {
+    public var back: T? {
         return delegate.back
     }
     
     /// Element at the front the queue
-    var front: T? {
+    public var front: T? {
         return delegate.front
     }
     
     /// Enqueue a new element at the tail
-    func pushBack(item: T) {
+    public mutating func pushBack(item: T) {
         delegate.pushBack(item)
     }
     
     /// Dequeue an element from the head, returning it
-    func popFront() -> T? {
+    public mutating func popFront() -> T? {
         return delegate.popFront()
     }
 }
@@ -199,17 +191,17 @@ class LinkedListQueue<T>: QueueType {
 */
 extension LinkedListQueue: MutableCollectionType {
     /// Always zero
-    var startIndex: Int {
+    public var startIndex: Int {
         return delegate.startIndex
     }
     
-    /// Equal to the number of elements in the array
-    var endIndex: Int {
+    /// Equal to the number of elements in the arrpublic ay
+    public var endIndex: Int {
         return delegate.endIndex
     }
     
     /// The position must be within bounds. Otherwise it might crash. Complexity: O(1)
-    subscript (position: Int) -> T {
+    public subscript (position: Int) -> T {
         get {
             return delegate[position]
         }
@@ -218,7 +210,7 @@ extension LinkedListQueue: MutableCollectionType {
         }
     }
     
-    func generate() -> LinkedListGenerator<T> {
+    public func generate() -> LinkedListGenerator<T> {
         return delegate.generate()
     }
 }

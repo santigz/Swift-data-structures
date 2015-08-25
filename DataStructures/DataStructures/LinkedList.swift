@@ -40,17 +40,17 @@ extension LinkedListElement: CustomStringConvertible, CustomDebugStringConvertib
 /**
     LinkedList implementation. 
 */
-class LinkedList<T>: DoubleEndedContainer {
+public struct LinkedList<T>: DoubleEndedContainer {
     private var linkedFront: LinkedListElement<T>? = nil
     private var linkedBack: LinkedListElement<T>? = nil
     
-    var count = 0
+    public private(set) var count = 0
     
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         return count == 0
     }
     
-    var back: T? {
+    public var back: T? {
         get {
             return linkedBack?.value
         }
@@ -61,7 +61,7 @@ class LinkedList<T>: DoubleEndedContainer {
         }
     }
     
-    var front: T? {
+    public var front: T? {
         get {
             return linkedFront?.value
         }
@@ -73,7 +73,7 @@ class LinkedList<T>: DoubleEndedContainer {
     }
 
     /// Insert a new element to the back. Complexity: O(1)
-    func pushBack(item: T) {
+    public mutating func pushBack(item: T) {
         let newBack = LinkedListElement<T>(value: item, back: nil, front: linkedBack)
         if linkedFront == nil {
             linkedFront = newBack
@@ -84,7 +84,7 @@ class LinkedList<T>: DoubleEndedContainer {
     }
     
     /// Insert a new element to the front. Complexity: O(1)
-    func pushFront(item: T) {
+    public mutating func pushFront(item: T) {
         let newTail = LinkedListElement<T>(value: item, back: linkedFront, front: nil)
         if linkedBack == nil {
             linkedBack = newTail
@@ -95,7 +95,7 @@ class LinkedList<T>: DoubleEndedContainer {
     }
     
     /// Remove the element at the back if any and return it. Complexity: O(1)
-    func popBack() -> T? {
+    public mutating func popBack() -> T? {
         if isEmpty {
             return nil
         }
@@ -110,7 +110,7 @@ class LinkedList<T>: DoubleEndedContainer {
     }
     
     /// Remove the element at the front if any and return it. Complexity: O(1)
-    func popFront() -> T? {
+    public mutating func popFront() -> T? {
         if isEmpty {
             return nil
         }
@@ -125,7 +125,7 @@ class LinkedList<T>: DoubleEndedContainer {
     }
     
     /// Remove all the elements of the linked list
-    func removeAll() {
+    public mutating func removeAll() {
         // All is removed in cascade because LinkedListElement.front is weak
         linkedFront = nil
         linkedBack = nil
@@ -138,12 +138,12 @@ Make the CircularArray iterable as a regular array, starting from frontIdx and l
 */
 extension LinkedList: MutableCollectionType {
     /// Always zero
-    var startIndex: Int {
+    public var startIndex: Int {
         return 0;
     }
     
     /// Equal to the number of elements in the array
-    var endIndex: Int {
+    public var endIndex: Int {
         return count
     }
     
@@ -157,7 +157,7 @@ extension LinkedList: MutableCollectionType {
     }
     
     /// The position must be within bounds. Otherwise it might crash. Complexity: O(n)
-    subscript (position: Int) -> T {
+    public subscript (position: Int) -> T {
         get {
             return element(position).value
         }
@@ -167,17 +167,17 @@ extension LinkedList: MutableCollectionType {
     }
     
     /// Function for iterating the linked list
-    func generate() -> LinkedListGenerator<T> {
+    public func generate() -> LinkedListGenerator<T> {
         return LinkedListGenerator(frontElement: linkedFront)
     }
 }
 
 /**
-    This class is used to make LinkedList subscriptable
- */
-struct LinkedListGenerator<T>: GeneratorType {
-    var frontElement: LinkedListElement<T>?
-    mutating func next() -> T? {
+This class is used to make LinkedList subscriptable
+*/
+public struct LinkedListGenerator<T>: GeneratorType {
+    private var frontElement: LinkedListElement<T>?
+    mutating public func next() -> T? {
         if frontElement == nil {
             return nil
         }
@@ -188,7 +188,7 @@ struct LinkedListGenerator<T>: GeneratorType {
 }
 
 extension LinkedList: CustomStringConvertible, CustomDebugStringConvertible {
-    var description: String {
+    public var description: String {
         var desc = "LinkedList = \(self.count) items {"
         var element = linkedFront
         while element != nil {
@@ -198,7 +198,7 @@ extension LinkedList: CustomStringConvertible, CustomDebugStringConvertible {
         desc += "}"
         return desc
     }
-    var debugDescription: String {
+    public var debugDescription: String {
         var desc = "LinkedList = \(self.count) items {"
         var element = linkedFront
         while element != nil {
@@ -210,7 +210,3 @@ extension LinkedList: CustomStringConvertible, CustomDebugStringConvertible {
     }
 }
 
-/**
-    Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method. This extension exists to enable polymorphism.
-*/
-//extension LinkedList: Container, Queue, Deque, Stack {}

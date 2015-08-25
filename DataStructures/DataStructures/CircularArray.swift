@@ -6,44 +6,45 @@
 
 import Foundation
 
+// TODO: Make CircularArray dynamic.
 
 /**
     ArrayQueue implements a circular queue using an array as a container.
     It can be used as Queue, Stack and BidirectionalContainer.
     It must be created with a fixed capacity that can never exceed - otherwise it crashes.
 
-    TODO: Make it dynamic so the size increases or decreases transparently.
+    - TODO: Make it dynamic so the size increases or decreases transparently.
 */
-class CircularArray<T>: DoubleEndedContainer {
+public struct CircularArray<T>: DoubleEndedContainer {
     private var array: [T?]
     private var backIdx = 0
     private var frontIdx = 0
     
-    var count = 0
+    public private(set) var count = 0
     
     /// The capacity of the ArrayQueue that can never be exceeded when enqueueing.
-    let capacity: Int
+    public let capacity: Int
     
     // MARK: ArrayQueue unique methods
     
     /// Init the array queue with a fixed capacity
-    init(capacity: Int) {
+    public init(capacity: Int) {
         self.array = Array<T?>(count: capacity, repeatedValue: nil)
         self.capacity = capacity
     }
     
     /// Whether the array queue reached its maximum capacity
-    var isFull: Bool {
+    public var isFull: Bool {
         return count == array.count
     }
     
-    // MARK: Other BidirectionalContainer methods
+    // MARK: Other DoubleEndedContainer methods
     
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         return count == 0
     }
     
-    var back: T? {
+    public var back: T? {
         get {
             return array[backIdx]
         }
@@ -52,7 +53,7 @@ class CircularArray<T>: DoubleEndedContainer {
         }
     }
     
-    var front: T? {
+    public var front: T? {
         get {
             return array[frontIdx]
         }
@@ -61,7 +62,7 @@ class CircularArray<T>: DoubleEndedContainer {
         }
     }
     
-    func pushBack(item: T) {
+    public mutating func pushBack(item: T) {
         if isFull {
             assertionFailure("CircularArray too small")
             return
@@ -74,7 +75,7 @@ class CircularArray<T>: DoubleEndedContainer {
         array[backIdx] = item
     }
     
-    func pushFront(item: T) {
+    public mutating func pushFront(item: T) {
         if isFull {
             assertionFailure("CircularArray too small")
             return
@@ -87,7 +88,7 @@ class CircularArray<T>: DoubleEndedContainer {
         array[frontIdx] = item
     }
     
-    func popBack() -> T? {
+    public mutating func popBack() -> T? {
         if isEmpty {
             return nil
         }
@@ -101,7 +102,7 @@ class CircularArray<T>: DoubleEndedContainer {
         return result
     }
     
-    func popFront() -> T? {
+    public mutating func popFront() -> T? {
         if isEmpty {
             return nil
         }
@@ -116,7 +117,7 @@ class CircularArray<T>: DoubleEndedContainer {
     }
     
     /// Remove all the elements of the circular array
-    func removeAll() {
+    public mutating func removeAll() {
         array = Array<T?>(count: capacity, repeatedValue: nil)
         backIdx = 0
         frontIdx = 0
@@ -129,17 +130,17 @@ class CircularArray<T>: DoubleEndedContainer {
  */
 extension CircularArray: MutableCollectionType {
     /// Always zero
-    var startIndex: Int {
+    public var startIndex: Int {
         return 0
     }
     
-    /// Equal to the number of elements in the array
-    var endIndex: Int {
+    /// Equal to the number of elements in the arrpublic ay
+    public var endIndex: Int {
         return count
     }
     
-    /// The position must be within bounds. Otherwise it might crash. Complexity: O(1)
-    subscript (position: Int) -> T {
+    /// The position must be within bounds. Otherwise it might crash. Complexity: O(public 1)
+    public subscript (position: Int) -> T {
         get {
             let i = (position + frontIdx) % count
             return array[i]!
@@ -150,7 +151,7 @@ extension CircularArray: MutableCollectionType {
         }
     }
     
-    func generate() -> CircularArrayGenerator<T> {
+    public func generate() -> CircularArrayGenerator<T> {
         var slices: Array<ArraySlice<T?>> = []
         if isEmpty {
             return CircularArrayGenerator(slices: slices)
@@ -165,13 +166,15 @@ extension CircularArray: MutableCollectionType {
     }
 }
 
+
 /**
-    This class is used to make CircularArray subscriptable.
+This class is used to make CircularArray subscriptable.
 */
-struct CircularArrayGenerator<T>: GeneratorType {
+public struct CircularArrayGenerator<T>: GeneratorType {
     /// Array with the sub-arrays as slices of the elements. Everything must be in reverse order for efficiency
-    var slices: Array<ArraySlice<T?>>
-    mutating func next() -> T? {
+    private var slices: Array<ArraySlice<T?>>
+    
+    public mutating func next() -> T? {
         if slices.isEmpty {
             return nil
         }
@@ -183,24 +186,11 @@ struct CircularArrayGenerator<T>: GeneratorType {
     }
 }
 
-
 extension CircularArray: CustomStringConvertible, CustomDebugStringConvertible {
-    var description: String {
+    public var description: String {
         return "CircularArray: " + array.description
     }
-    var debugDescription: String {
+    public var debugDescription: String {
         return "CircularArray: " + array.debugDescription
     }
 }
-
-/**
-    Queue, Deque and Stack methods are fully included in DoubleEndedContainer protocol, so there's no need to add anything other method. This extension exists to enable polymorphism.
-*/
-//extension CircularArray: Container, Queue, Deque, Stack {}
-
-//extension CircularArray: Equatable {}
-//func ==<T> (lhs: CircularArray<T>, rhs: CircularArray<T>) -> Bool {
-//    // We can't compare `lhs.array == rhs.array` because the array has optional values. Looks like a Swift bug.
-//    return lhs.array == rhs.array
-//}
-

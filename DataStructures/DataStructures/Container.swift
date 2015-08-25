@@ -9,7 +9,7 @@ import Foundation
 /**
     Abstract container type with two ends: head and tail
 */
-protocol Container: MutableCollectionType {
+public protocol Container: MutableCollectionType {
     /// Whether the container is empty
     var isEmpty: Bool { get }
     
@@ -27,7 +27,7 @@ protocol Container: MutableCollectionType {
     Double ended container that can insert and remove elements at both ends (front and back).
     The container is subscriptable from the front (index zero) to the back (largest index)
 */
-protocol DoubleEndedContainer: Container, QueueType {
+public protocol DoubleEndedContainer: Container, QueueType {
     /// Element at the back of the container
     var back: Self.Generator.Element? { get set }
     

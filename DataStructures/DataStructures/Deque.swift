@@ -11,7 +11,7 @@ import Foundation
 /**
     Double ended queue
 */
-protocol DequeType: QueueType {
+public protocol DequeType: QueueType {
     /// Insert a new element at the front
     mutating func pushFront(item: Self.Generator.Element)
     
@@ -21,24 +21,107 @@ protocol DequeType: QueueType {
 
 
 /**
-    The default implementation of a Deque is a linked list. You can change the default behaviour by changing the superclass to `CircularArrayDeque`.
-*/
-class Deque<T>: LinkedListDeque<T> {}
-
-
-/**
     Implementation of a deque as a circular array. The whole implementation is delegated to `CircularArray`.
 */
-class CircularArrayDeque<T>: CircularArrayQueue<T>, DequeType {
-
+public struct CircularArrayDeque<T>: DequeType {
+    
+    internal var delegate: CircularArray<T>
+    
+    /// Initialize as a new circular array with a given capacity
+    public init(capacity: Int) {
+        delegate = CircularArray<T>(capacity: capacity)
+    }
+    
+    /// Initialize from a circular array
+    public init(circularArray: CircularArray<T>) {
+        delegate = circularArray
+    }
+    
+    /// Returns the underlying circular array
+    var circularArray: CircularArray<T> {
+        get {
+            return delegate
+        }
+    }
+    
+    // MARK: Container protocol
+    
+    /// Whether the container is empty
+    public var isEmpty: Bool {
+        return delegate.isEmpty
+    }
+    
+    /// Number of elements in the container
+    public var count: Int {
+        return delegate.count
+    }
+    
+    /// Remove all elements in the container
+    public mutating func removeAll() {
+        delegate.removeAll()
+    }
+    
+    // MARK: QueueType protocol
+    
+    /// Element at the back the queue
+    public var back: T? {
+        return delegate.back
+    }
+    
+    /// Element at the front the queue
+    public var front: T? {
+        return delegate.front
+    }
+    
+    /// Enqueue a new element at the tail
+    public mutating func pushBack(item: T) {
+        delegate.pushBack(item)
+    }
+    
+    /// Dequeue an element from the head, returning it
+    public mutating func popFront() -> T? {
+        return delegate.popFront()
+    }
+    
+    // MARK: DequeType protocol
+    
     /// Insert a new element at the front
-    func pushFront(item: T) {
+    public mutating func pushFront(item: T) {
         delegate.pushFront(item)
     }
     
     /// Dequeue an element from the tail, returning it
-    func popBack() -> T? {
+    public mutating func popBack() -> T? {
         return delegate.popBack()
+    }
+}
+
+/**
+    Make CircularArrayDeque iterable.
+*/
+extension CircularArrayDeque: MutableCollectionType {
+    /// Always zero
+    public var startIndex: Int {
+        return delegate.startIndex
+    }
+    
+    /// Equal to the number of elements in the array
+    public var endIndex: Int {
+        return delegate.endIndex
+    }
+    
+    /// The position must be within bounds. Otherwise it might crash. Complexity: O(1)
+    public subscript (position: Int) -> T {
+        get {
+            return delegate[position]
+        }
+        set {
+            delegate[position] = newValue
+        }
+    }
+    
+    public func generate() -> CircularArrayGenerator<T> {
+        return delegate.generate()
     }
 }
 
@@ -46,15 +129,105 @@ class CircularArrayDeque<T>: CircularArrayQueue<T>, DequeType {
 /**
     Implementation of a deque as a linked list. The whole implementation is delegated to `LinkedList`.
 */
-class LinkedListDeque<T>: LinkedListQueue<T>, DequeType {
+public struct LinkedListDeque<T>: DequeType {
+    
+    internal var delegate: LinkedList<T>
+    
+    /// Initialize as a new linked list
+    public init(capacity: Int) {
+        delegate = LinkedList<T>()
+    }
+    
+    /// Initialize from a linked list
+    public init(linkedList: LinkedList<T>) {
+        delegate = linkedList
+    }
+    
+    /// Returns the underlying linked list
+    public var linkedList: LinkedList<T> {
+        get {
+            return delegate
+        }
+    }
+    
+    // MARK: Container protocol
+    
+    /// Whether the container is empty
+    public var isEmpty: Bool {
+        return delegate.isEmpty
+    }
+    
+    /// Number of elements in the container
+    public var count: Int {
+        return delegate.count
+    }
+    
+    /// Remove all elements in the container
+    public mutating func removeAll() {
+        delegate.removeAll()
+    }
+    
+    // MARK: QueueType protocol
+    
+    /// Element at the back the queue
+    public var back: T? {
+        return delegate.back
+    }
+    
+    /// Element at the front the queue
+    public var front: T? {
+        return delegate.front
+    }
+    
+    /// Enqueue a new element at the tail
+    public mutating func pushBack(item: T) {
+        delegate.pushBack(item)
+    }
+    
+    /// Dequeue an element from the head, returning it
+    public mutating func popFront() -> T? {
+        return delegate.popFront()
+    }
+    
+    // MARK: DequeType protocol
     
     /// Insert a new element at the front
-    func pushFront(item: T) {
+    public mutating func pushFront(item: T) {
         delegate.pushFront(item)
     }
     
     /// Dequeue an element from the tail, returning it
-    func popBack() -> T? {
+    public mutating func popBack() -> T? {
         return delegate.popBack()
+    }
+}
+
+
+/**
+    Make LinkedListDeque iterable.
+*/
+extension LinkedListDeque: MutableCollectionType {
+    /// Always zero
+    public var startIndex: Int {
+        return delegate.startIndex
+    }
+    
+    /// Equal to the number of elements in the arrpublic ay
+    public var endIndex: Int {
+        return delegate.endIndex
+    }
+    
+    /// The position must be within bounds. Otherwise it might crash. Complexity: O(1)
+    public subscript (position: Int) -> T {
+        get {
+            return delegate[position]
+        }
+        set {
+            delegate[position] = newValue
+        }
+    }
+    
+    public func generate() -> LinkedListGenerator<T> {
+        return delegate.generate()
     }
 }
