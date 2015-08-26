@@ -19,11 +19,69 @@ class DataStructuresTests: XCTestCase {
         assert(testLength > 2, "lengthTest is too small")
     }
     
+    func doubleEndedContainerEmptyTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
+        XCTAssertTrue(container.isEmpty)
+        XCTAssertTrue(container.count == 0)
+        XCTAssertNil(container.back)
+        XCTAssertNil(container.front)
+        XCTAssertNil(container.popBack())
+        XCTAssertNil(container.popFront())
+        
+        // Test nil assignment on empty container
+        container.back = nil
+        container.front = nil
+        XCTAssertNil(container.back)
+        XCTAssertNil(container.front)
+    }
+    
+    func doubleEndedContainerFullTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
+        XCTAssertFalse(container.isEmpty)
+        XCTAssertTrue(container.count == testLength)
+        XCTAssertNotNil(container.back)
+        XCTAssertNotNil(container.front)
+        
+        let back = container.back!
+        let front = container.front!
+        
+        // Test popBack()
+        let popBack = container.popBack()
+        XCTAssertNotNil(popBack)
+        XCTAssertEqual(popBack, back)
+        container.pushBack(popBack!)
+        
+        // Test popFront()
+        let popFront = container.popFront()
+        XCTAssertNotNil(popFront)
+        XCTAssertEqual(popFront, front)
+        container.pushFront(popFront!)
+        
+        // Test different types of assignments on back and front
+        let testVal = testLength * 2
+        
+        container.back = nil
+        XCTAssertTrue(container.count == testLength - 1)
+        container.pushBack(testVal)
+        XCTAssertTrue(container.back == testVal)
+        container.back = back
+        XCTAssertEqual(container.back, back)
+        XCTAssertTrue(container.count == testLength)
+        
+        container.front = nil
+        XCTAssertTrue(container.count == testLength - 1)
+        container.pushFront(testVal)
+        XCTAssertTrue(container.front == testVal)
+        container.front = front
+        XCTAssertEqual(container.front, front)
+        XCTAssertTrue(container.count == testLength)
+    }
+    
     /**
       pushBack in a container to insert the data: (front) 1...testLength (back)
     */
     func doubleEndedContainerPushBackTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
-        // Test pushBack()
+        
+        doubleEndedContainerEmptyTest(&container)
+        
         for element in 1...testLength {
             container.pushBack(element)
             assert(container.count == element, "Container should have \(element) elements")
@@ -31,6 +89,8 @@ class DataStructuresTests: XCTestCase {
             assert(container.back == element, "Bad front")
             assert(container.front == 1, "Bad back")
         }
+        
+        doubleEndedContainerFullTest(&container)
     }
     
     
@@ -38,7 +98,9 @@ class DataStructuresTests: XCTestCase {
       pushFront in a container to insert the data: (front) 1...testLength (back)
     */
     func doubleEndedContainerPushFrontTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
-        // Test pushFront()
+        
+        doubleEndedContainerEmptyTest(&container)
+        
         for element in Array((1...testLength).reverse()) {
             container.pushFront(element)
             let count = testLength - element + 1
@@ -47,13 +109,17 @@ class DataStructuresTests: XCTestCase {
             assert(container.back == testLength, "Bad back")
             assert(container.front == element, "Bad front")
         }
+        
+        doubleEndedContainerFullTest(&container)
     }
     
     /**
       popBack from a container with the data: (front) 1...testLength (back)
     */
     func doubleEndedContainerPopBackTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
-        // Test popBack()
+        
+        doubleEndedContainerFullTest(&container)
+        
         for element in Array((2...testLength).reverse()) {
             let popped = container.popBack()
             assert(popped! == element, "Bad popFront() element")
@@ -62,22 +128,17 @@ class DataStructuresTests: XCTestCase {
             assert(container.back == element - 1, "Bad back")
             assert(container.front == 1, "Bad front")
         }
-        let popped = container.popBack()
-        assert(popped == 1, "Bad popFront() element")
-        assert(container.count == 0, "Container should have 0 elements")
-        assert(container.isEmpty, "Container should be empty")
-        assert(container.front == nil, "Bad front")
-        assert(container.back == nil, "Bad back")
-        
-        let popped2 = container.popBack()
-        assert(popped2 == nil, "Bad popFront() element")
+        assert(container.popBack() == 1, "Bad popFront() element")
+        doubleEndedContainerEmptyTest(&container)
     }
     
     /**
         popFront from a container with the data: (front) 1...testLength (back)
      */
     func doubleEndedContainerPopFrontTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
-        // Test popFront()
+
+        doubleEndedContainerFullTest(&container)
+        
         for element in 1...(testLength - 1) {
             let popped = container.popFront()
             assert(popped! == element, "Bad popFront() element")
@@ -87,15 +148,8 @@ class DataStructuresTests: XCTestCase {
             assert(container.back == testLength, "Bad back")
             assert(container.front == element + 1, "Bad front")
         }
-        let popped = container.popFront()
-        assert(popped == testLength, "Bad popFront() element")
-        assert(container.count == 0, "Container should have 0 elements")
-        assert(container.isEmpty, "Container should be empty")
-        assert(container.front == nil, "Bad front")
-        assert(container.back == nil, "Bad back")
-        
-        let popped2 = container.popFront()
-        assert(popped2 == nil, "Bad popFront() element")
+        assert(container.popFront() == testLength, "Bad popFront() element")
+        doubleEndedContainerEmptyTest(&container)
     }
     
     func doubleEndedContainerSubscriptTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
@@ -114,6 +168,19 @@ class DataStructuresTests: XCTestCase {
         assert(container[pos] == 34, "LinkedList subscript failed")
         
         container.removeAll()
+    }
+    
+    func doubleEndedContainerRemoveAllTest<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
+        
+        doubleEndedContainerEmptyTest(&container)
+        
+        for _ in 1...min(3, testLength) {
+            container.pushFront(1)
+        }
+        assert(container.count > 0, "Count should be zero")
+        assert(!container.isEmpty, "Container should not be empty")
+        container.removeAll()
+        doubleEndedContainerEmptyTest(&container)
     }
     
     /**
@@ -141,15 +208,7 @@ class DataStructuresTests: XCTestCase {
         
         doubleEndedContainerSubscriptTest(&container)
         
-        // Test removeAll
-        for _ in 1...min(3, testLength) {
-            container.pushFront(1)
-        }
-        assert(container.count > 0, "Count should be zero")
-        assert(!container.isEmpty, "Container should not be empty")
-        container.removeAll()
-        assert(container.count == 0, "Count should be zero")
-        assert(container.isEmpty, "Container should be empty")
+        doubleEndedContainerRemoveAllTest(&container)
     }
     
     func queueTest<T: QueueType where T.Generator.Element == Int>(inout queue: T) {
@@ -197,7 +256,7 @@ class DataStructuresTests: XCTestCase {
     func testCircularArrayPerformance() {
         self.measureBlock() {
             let length = 1000
-            let circarray = CircularArray<Int>(capacity: length)
+            var circarray = CircularArray<Int>(capacity: length)
             for _ in 1...length {
                 circarray.pushFront(1)
             }
@@ -232,7 +291,7 @@ class DataStructuresTests: XCTestCase {
     func testLinkedListPerformance() {
         self.measureBlock() {
             let length = 1000
-            let llist = LinkedList<Int>()
+            var llist = LinkedList<Int>()
             for _ in 1...length {
                 llist.pushFront(1)
             }
