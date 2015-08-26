@@ -15,7 +15,7 @@ public protocol DequeType: QueueType {
     /// Insert a new element at the front
     mutating func pushFront(item: Self.Generator.Element)
     
-    /// Dequeue an element from the tail, returning it
+    /// Remove an element from the back, returning it
     mutating func popBack() -> Self.Generator.Element?
 }
 
@@ -63,14 +63,16 @@ public struct CircularArrayDeque<T>: DequeType {
     
     // MARK: QueueType protocol
     
-    /// Element at the back the queue
+    /// Element at the back the queue. Assigning `nil` removes the back element.
     public var back: T? {
-        return delegate.back
+        get { return delegate.back }
+        set { delegate.back = newValue }
     }
     
-    /// Element at the front the queue
+    /// Element at the front the queue. Assigning `nil` removes the front element.
     public var front: T? {
-        return delegate.front
+        get { return delegate.front }
+        set { delegate.front = newValue }
     }
     
     /// Enqueue a new element at the tail
@@ -169,14 +171,16 @@ public struct LinkedListDeque<T>: DequeType {
     
     // MARK: QueueType protocol
     
-    /// Element at the back the queue
+    /// Element at the back the queue. Assigning `nil` removes the back element.
     public var back: T? {
-        return delegate.back
+        get { return delegate.back }
+        set { delegate.back = newValue }
     }
     
-    /// Element at the front the queue
+    /// Element at the front the queue. Assigning `nil` removes the front element.
     public var front: T? {
-        return delegate.front
+        get { return delegate.front }
+        set { delegate.front = newValue }
     }
     
     /// Enqueue a new element at the tail

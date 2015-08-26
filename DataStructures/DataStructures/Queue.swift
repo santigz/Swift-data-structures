@@ -12,15 +12,15 @@ import Foundation
 public protocol QueueType: Container {
     
     /// Element at the back the container
-    var back: Self.Generator.Element? { get }
+    var back: Self.Generator.Element? { get set }
     
     /// Element at the front the container
-    var front: Self.Generator.Element? { get }
+    var front: Self.Generator.Element? { get set }
     
-    /// Enqueue a new element at the tail
+    /// Insert a new element at the back
     mutating func pushBack(item: Self.Generator.Element)
     
-    /// Dequeue an element from the head, returning it
+    /// Remove an element from the front, returning it
     mutating func popFront() -> Self.Generator.Element?
 }
 
@@ -49,7 +49,7 @@ public struct CircularArrayQueue<T>: QueueType {
         }
     }
     
-    // MARK: Container
+    // MARK: Container protocol
     
     /// Whether the container is empty
     public var isEmpty: Bool {
@@ -67,16 +67,18 @@ public struct CircularArrayQueue<T>: QueueType {
     }
     
     
-    // MARK: Queue
+    // MARK: QueueType protocol
     
-    /// Element at the back the queue
+    /// Element at the back the queue. Assigning `nil` removes the back element.
     public var back: T? {
-        return delegate.back
+        get { return delegate.back }
+        set { delegate.back = newValue }
     }
     
-    /// Element at the front the queue
+    /// Element at the front the queue. Assigning `nil` removes the front element.
     public var front: T? {
-        return delegate.front
+        get { return delegate.front }
+        set { delegate.front = newValue }
     }
     
     /// Enqueue a new element at the tail
@@ -164,14 +166,16 @@ public struct LinkedListQueue<T>: QueueType {
     
     // MARK: QueueType protocol
     
-    /// Element at the back the queue
+    /// Element at the back the queue. Assigning `nil` removes the back element.
     public var back: T? {
-        return delegate.back
+        get { return delegate.back }
+        set { delegate.back = newValue }
     }
     
-    /// Element at the front the queue
+    /// Element at the front the queue. Assigning `nil` removes the front element.
     public var front: T? {
-        return delegate.front
+        get { return delegate.front }
+        set { delegate.front = newValue }
     }
     
     /// Enqueue a new element at the tail

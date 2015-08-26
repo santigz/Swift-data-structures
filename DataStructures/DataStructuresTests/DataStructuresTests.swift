@@ -274,18 +274,27 @@ class DataStructuresTests: XCTestCase {
     }
     
     func testLinkedList() {
-        var llist = LinkedList<Int>()
-        doubleEndedContainerTest(&llist)
+//        var llist = LinkedList<Int>()
+//        doubleEndedContainerTest(&llist)
+//        
+//        // Test that all objects are deinitialized on removeAll()
+//        var llist2 = LinkedList<TestElement>()
+//        nElementsDeinitialized = 0
+//        for _ in 1...testLength {
+//            llist2.pushBack(TestElement())
+//        }
+//
+//        llist2.removeAll()
+//        assert(nElementsDeinitialized == testLength, "Wrong number of deinitializers")
         
-        // Test that all objects are deinitialized on removeAll()
-        let llist2 = LinkedList<TestElement>()
-        nElementsDeinitialized = 0
-        for _ in 1...testLength {
-            llist2.pushBack(TestElement())
-        }
-
-        llist2.removeAll()
-        assert(nElementsDeinitialized == testLength, "Wrong number of deinitializers")
+        
+        
+        var llist3 = LinkedList<Int?>()
+        llist3.back = 2
+        llist3.back = nil
+        
+        var x: Int?? = 3
+        x = nil
     }
     
     func testLinkedListPerformance() {

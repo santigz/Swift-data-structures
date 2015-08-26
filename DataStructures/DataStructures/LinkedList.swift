@@ -51,26 +51,44 @@ public struct LinkedList<T>: DoubleEndedContainer {
         return count == 0
     }
     
-    /// Element at the back of the linked list
+    /// Element at the back of the linked list. Assigning `nil` removes the back element.
     public var back: T? {
         get {
             return linkedBack?.value
         }
         set {
-            if var back = linkedBack?.value {
-                back = newValue!
+            if let lback = linkedBack {
+                if let value = newValue {
+                    // Replace the element
+                    lback.value = value
+                } else {
+                    // Remove the element
+                    popBack()
+                }
+            } else if let value = newValue {
+                // Insert the element
+                pushBack(value)
             }
         }
     }
     
-    /// Element at the front of the linked list
+    /// Element at the front of the linked list. Assigning `nil` removes the front element.
     public var front: T? {
         get {
             return linkedFront?.value
         }
         set {
-            if var front = linkedFront?.value {
-                front = newValue!
+            if let lfront = linkedFront {
+                if let value = newValue {
+                    // Replace the element
+                    lfront.value = value
+                } else {
+                    // Remove the element
+                    popFront()
+                }
+            } else if let value = newValue {
+                // Insert the element
+                pushFront(value)
             }
         }
     }

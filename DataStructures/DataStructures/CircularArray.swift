@@ -45,23 +45,45 @@ public struct CircularArray<T>: DoubleEndedContainer {
         return count == 0
     }
     
-    /// Element at the back of the circular array
+    /// Element at the back of the circular array. Assigning `nil` removes the back element.
     public var back: T? {
         get {
             return array[backIdx]
         }
         set {
-            array[backIdx] = newValue
+            if array[backIdx] != nil {
+                if let value = newValue {
+                    // Replace the element
+                    array[backIdx] = value
+                } else {
+                    // Remove the element
+                    popBack()
+                }
+            } else if let value = newValue {
+                // Insert the element
+                pushBack(value)
+            }
         }
     }
     
-    /// Element at the front of the circular array
+    /// Element at the front of the circular array. Assigning `nil` removes the front element.
     public var front: T? {
         get {
             return array[frontIdx]
         }
         set {
-            array[frontIdx] = newValue
+            if array[frontIdx] != nil {
+                if let value = newValue {
+                    // Replace the element
+                    array[frontIdx] = value
+                } else {
+                    // Remove the element
+                    popFront()
+                }
+            } else if let value = newValue {
+                // Insert the element
+                pushFront(value)
+            }
         }
     }
     
