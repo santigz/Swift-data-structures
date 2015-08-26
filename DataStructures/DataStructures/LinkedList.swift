@@ -29,7 +29,7 @@ class LinkedListElement<T> {
 
 extension LinkedListElement: CustomStringConvertible, CustomDebugStringConvertible {
     var description: String {
-        // How can we call `value.description` when possible?
+        // TODO: How can we call `value.description` when possible?
         return "LinkedListElement: \(value)"
     }
     var debugDescription: String {
@@ -46,10 +46,12 @@ public struct LinkedList<T>: DoubleEndedContainer {
     
     public private(set) var count = 0
     
+    /// Whether the linked list is empty
     public var isEmpty: Bool {
         return count == 0
     }
     
+    /// Element at the back of the linked list
     public var back: T? {
         get {
             return linkedBack?.value
@@ -61,6 +63,7 @@ public struct LinkedList<T>: DoubleEndedContainer {
         }
     }
     
+    /// Element at the front of the linked list
     public var front: T? {
         get {
             return linkedFront?.value
@@ -72,7 +75,8 @@ public struct LinkedList<T>: DoubleEndedContainer {
         }
     }
 
-    /// Insert a new element to the back. Complexity: O(1)
+    /// Insert a new element to the back
+    /// - Complexity: O(1)
     public mutating func pushBack(item: T) {
         let newBack = LinkedListElement<T>(value: item, back: nil, front: linkedBack)
         if linkedFront == nil {
@@ -173,7 +177,7 @@ extension LinkedList: MutableCollectionType {
 }
 
 /**
-This class is used to make LinkedList subscriptable
+    This class is used to make LinkedList subscriptable
 */
 public struct LinkedListGenerator<T>: GeneratorType {
     private var frontElement: LinkedListElement<T>?

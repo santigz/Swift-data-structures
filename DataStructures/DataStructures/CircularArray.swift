@@ -40,10 +40,12 @@ public struct CircularArray<T>: DoubleEndedContainer {
     
     // MARK: Other DoubleEndedContainer methods
     
+    /// Whether the circular array is empty
     public var isEmpty: Bool {
         return count == 0
     }
     
+    /// Element at the back of the circular array
     public var back: T? {
         get {
             return array[backIdx]
@@ -53,6 +55,7 @@ public struct CircularArray<T>: DoubleEndedContainer {
         }
     }
     
+    /// Element at the front of the circular array
     public var front: T? {
         get {
             return array[frontIdx]
@@ -62,6 +65,7 @@ public struct CircularArray<T>: DoubleEndedContainer {
         }
     }
     
+    /// Insert a new element at the back
     public mutating func pushBack(item: T) {
         if isFull {
             assertionFailure("CircularArray too small")
@@ -75,6 +79,7 @@ public struct CircularArray<T>: DoubleEndedContainer {
         array[backIdx] = item
     }
     
+    /// Insert a new element at the front
     public mutating func pushFront(item: T) {
         if isFull {
             assertionFailure("CircularArray too small")
@@ -88,6 +93,7 @@ public struct CircularArray<T>: DoubleEndedContainer {
         array[frontIdx] = item
     }
     
+    /// Remove an element from the back and return it if there is one
     public mutating func popBack() -> T? {
         if isEmpty {
             return nil
@@ -102,6 +108,7 @@ public struct CircularArray<T>: DoubleEndedContainer {
         return result
     }
     
+    /// Remove an element from the front and return it if there is one
     public mutating func popFront() -> T? {
         if isEmpty {
             return nil
