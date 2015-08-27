@@ -8,37 +8,65 @@
 
 import XCTest
 
-class LinkedListTests: XCTestCase {
-    
-    class TestElement {
-        deinit {
-            ++nElementsDeinitialized
-        }
+
+protocol Initiable {
+    init()
+}
+
+final class ClassElement: Initiable {
+    static var nInit = 0
+    static var nDeinit = 0
+    init() {
+        ++ClassElement.nInit
     }
+    deinit {
+        ++ClassElement.nDeinit
+    }
+}
+
+struct StructElement: Initiable {
+    static var nInit = 0
+    init() {
+        ++StructElement.nInit
+    }
+}
+
+class LinkedListTests: XCTestCase {
     
     func testLinkedList() {
         var llist = LinkedList<Int>()
         testDoubleEndedContainer(&llist)
         
+    }
+    
+    func removeAllTest<T: Initiable>(_: T) {
         // Test that all objects are deinitialized on removeAll()
-        var llist2 = LinkedList<TestElement>()
-        nElementsDeinitialized = 0
+        // We only have the input argument to know the type of elements to push
+        var llist = LinkedList<T>()
+        ClassElement.nInit = 0
+        ClassElement.nDeinit = 0
         for _ in 1...testLength {
-            llist2.pushBack(TestElement())
+            llist.pushBack(T())
         }
         
-        llist2.removeAll()
-        XCTAssert(nElementsDeinitialized == testLength, "Wrong number of deinitializers")
+        llist.removeAll()
+        XCTAssertEqual(ClassElement.nInit, testLength, "Wrong number of initializations")
+        XCTAssertEqual(ClassElement.nDeinit, testLength, "Wrong number of deinitializations")
+    }
+    
+    func testRemoveAll() {
+        
+        removeAllTest(ClassElement())
+        
     }
     
     func testLinkedListPerformance() {
         self.measureBlock() {
-            let length = 1000
             var llist = LinkedList<Int>()
-            for _ in 1...length {
+            for _ in 1...testLength {
                 llist.pushFront(1)
             }
-            for _ in 1...length {
+            for _ in 1...testLength {
                 llist.popBack()
             }
         }

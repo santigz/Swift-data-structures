@@ -10,12 +10,11 @@ import Foundation
     Container that inserts and removes elements in LIFO (last-in first-out) order. New elements are added at the tail and removed from the head.
 */
 public protocol QueueType: Container {
-    
     /// Element at the back the container
-    var back: Self.Generator.Element? { get set }
+    var back: Self.Generator.Element? { get }
     
     /// Element at the front the container
-    var front: Self.Generator.Element? { get set }
+    var front: Self.Generator.Element? { get }
     
     /// Insert a new element at the back
     mutating func pushBack(item: Self.Generator.Element)

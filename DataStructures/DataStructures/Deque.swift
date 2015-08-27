@@ -12,6 +12,12 @@ import Foundation
     Double ended queue
 */
 public protocol DequeType: QueueType {
+    /// Element at the back the container
+    var back: Self.Generator.Element? { get set }
+    
+    /// Element at the front the container
+    var front: Self.Generator.Element? { get set }
+    
     /// Insert a new element at the front
     mutating func pushFront(item: Self.Generator.Element)
     
