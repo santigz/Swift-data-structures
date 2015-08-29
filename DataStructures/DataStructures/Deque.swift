@@ -142,7 +142,7 @@ public struct LinkedListDeque<T>: DequeType {
     internal var delegate: LinkedList<T>
     
     /// Initialize as a new linked list
-    public init(capacity: Int) {
+    public init() {
         delegate = LinkedList<T>()
     }
     
