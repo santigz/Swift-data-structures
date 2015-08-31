@@ -7,7 +7,7 @@
 import Foundation
 
 /**
-    Container that inserts and removes elements in LIFO (last-in first-out) order. New elements are added at the tail and removed from the head.
+    Container that inserts and removes elements in LIFO (last-in first-out) order. New elements are pushed at the back and popped from the front.
 */
 public protocol QueueType: Container {
     /// Element at the back the container
