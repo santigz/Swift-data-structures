@@ -36,7 +36,19 @@ class LinkedListTests: XCTestCase {
     func testLinkedList() {
         var llist = LinkedList<Int>()
         testDoubleEndedContainer(&llist)
+    }
+    
+    func testBack() {
+        var llist = LinkedList<Int>()
         
+        testPushFrontOnEnds(llist)
+        
+        testEmptyDequeBack(llist)
+        testEmptyDequeFront(llist)
+        testPushBack(&llist)
+        testFilledDeque(llist)
+        testFilledDequeBack(llist)
+        testFilledDequeFront(llist)
     }
     
     func removeAllTest<T: Initiable>(_: T) {
