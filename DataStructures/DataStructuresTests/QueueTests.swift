@@ -59,6 +59,8 @@ func testPopFront<T: QueueType where T.Generator.Element == Int>(inout queue: T)
 }
 
 func testQueue<T: QueueType where T.Generator.Element == Int>(var queue: T) {
+    XCTAssert(queue.isEmpty, "This test requires an empty container")
+    
     // Test push, pop and subscript
     testEmptyQueue(queue)
     testPushBack(&queue)
@@ -68,6 +70,7 @@ func testQueue<T: QueueType where T.Generator.Element == Int>(var queue: T) {
     testEmptyQueue(queue)
     
     // Test removeAll
+    testRemoveAll(&queue)
     testPushBack(&queue)
     testRemoveAll(&queue)
     testEmptyQueue(queue)

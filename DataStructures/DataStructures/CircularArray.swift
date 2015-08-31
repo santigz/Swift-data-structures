@@ -25,7 +25,6 @@ public struct CircularArray<T>: DoubleEndedContainer {
     /// The capacity of the ArrayQueue that can never be exceeded when enqueueing.
     public let capacity: Int
     
-    // MARK: ArrayQueue unique methods
     
     /// Init the array queue with a fixed capacity
     public init(capacity: Int) {
@@ -33,12 +32,32 @@ public struct CircularArray<T>: DoubleEndedContainer {
         self.capacity = capacity
     }
     
+    /// Init from a given Array<T>
+    /// - Complexity: O(n)
+    public init(array: [T]) {
+        self.array = array.map { (let n) -> T? in return n } // Convert elements from T to T?
+        self.capacity = array.count
+        self.count = array.count
+        self.backIdx = 0
+        self.frontIdx = array.count - 1
+    }
+    
+    /// Init from a given Array<T?>
+    /// - Complexity: O(1)
+    public init(array: [T?]) {
+        self.array = array
+        self.capacity = array.count
+        self.count = array.count
+        self.backIdx = 0
+        self.frontIdx = array.count - 1
+    }
+    
+    // MARK: DoubleEndedContainer protocol
+    
     /// Whether the array queue reached its maximum capacity
     public var isFull: Bool {
         return count == array.count
     }
-    
-    // MARK: Other DoubleEndedContainer methods
     
     /// Whether the circular array is empty
     public var isEmpty: Bool {
@@ -151,6 +170,17 @@ public struct CircularArray<T>: DoubleEndedContainer {
         backIdx = 0
         frontIdx = 0
         count = 0
+    }
+}
+
+extension CircularArray: ArrayLiteralConvertible {
+    /// Initiate from an array
+    public init(arrayLiteral elements: T...) {
+        self.array = elements.map { (let n) -> T? in return n }
+        self.capacity = elements.count
+        self.count = elements.count
+        self.backIdx = 0
+        self.frontIdx = elements.count - 1
     }
 }
 
