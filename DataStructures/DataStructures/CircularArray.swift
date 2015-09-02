@@ -201,11 +201,11 @@ extension CircularArray: MutableCollectionType {
     /// The position must be within bounds. Otherwise it might crash. Complexity: O(public 1)
     public subscript (position: Int) -> T {
         get {
-            let i = (position + frontIdx) % count
+            let i = (position + frontIdx) % array.count
             return array[i]!
         }
         set {
-            let i = (position + frontIdx) % count
+            let i = (position + frontIdx) % array.count
             array[i] = newValue
         }
     }
