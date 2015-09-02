@@ -170,6 +170,7 @@ extension LinkedList: MutableCollectionType {
     }
     
     /// Returns the LinkedListElement at the given position
+    /// - Complexity: O(n)
     private func element(position: Int) -> LinkedListElement<T> {
         var element = linkedFront!
         for _ in 0..<position {
@@ -178,7 +179,8 @@ extension LinkedList: MutableCollectionType {
         return element
     }
     
-    /// The position must be within bounds. Otherwise it might crash. Complexity: O(n)
+    /// The position must be within bounds. Otherwise it might crash.
+    /// - Complexity: O(n)
     public subscript (position: Int) -> T {
         get {
             return element(position).value
