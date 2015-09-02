@@ -250,6 +250,6 @@ extension CircularArray: CustomStringConvertible, CustomDebugStringConvertible {
         return "CircularArray: " + array.description
     }
     public var debugDescription: String {
-        return "CircularArray: " + array.debugDescription
+        return "CircularArray [frontIxd: " + String(frontIdx) + ", backIdx: " + String(backIdx) + ", count: " + String(count) + "]: " + array.debugDescription
     }
 }
