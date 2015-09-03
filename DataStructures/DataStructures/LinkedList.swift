@@ -29,11 +29,22 @@ class LinkedListElement<T> {
 
 extension LinkedListElement: CustomStringConvertible, CustomDebugStringConvertible {
     var description: String {
-        // TODO: How can we call `value.description` when possible?
-        return "LinkedListElement: \(value)"
+        var desc: String
+        if let descriptable = value as? CustomStringConvertible {
+            desc = descriptable.description
+        } else {
+            desc = "\(value)"
+        }
+        return "LinkedListElement: " + desc
     }
     var debugDescription: String {
-        return "LinkedListElement: \(value)"
+        var desc: String
+        if let descriptable = value as? CustomDebugStringConvertible {
+            desc = descriptable.debugDescription
+        } else {
+            desc = "\(value)"
+        }
+        return "LinkedListElement: " + desc
     }
 }
 
