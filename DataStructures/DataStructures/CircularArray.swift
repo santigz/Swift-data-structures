@@ -247,9 +247,9 @@ public struct CircularArrayGenerator<T>: GeneratorType {
 
 extension CircularArray: CustomStringConvertible, CustomDebugStringConvertible {
     public var description: String {
-        return "CircularArray: " + array.description
+        return array.description
     }
     public var debugDescription: String {
-        return "CircularArray [frontIxd: " + String(frontIdx) + ", backIdx: " + String(backIdx) + ", count: " + String(count) + "]: " + array.debugDescription
+        return "CircularArray<\(T.self)> (frontIxd: " + String(frontIdx) + ", backIdx: " + String(backIdx) + ", count: " + String(count) + "): " + array.debugDescription
     }
 }
