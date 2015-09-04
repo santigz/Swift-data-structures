@@ -29,22 +29,18 @@ class LinkedListElement<T> {
 
 extension LinkedListElement: CustomStringConvertible, CustomDebugStringConvertible {
     var description: String {
-        var desc: String
         if let descriptable = value as? CustomStringConvertible {
-            desc = descriptable.description
+            return descriptable.description
         } else {
-            desc = "\(value)"
+            return "\(value)"
         }
-        return "LinkedListElement: " + desc
     }
     var debugDescription: String {
-        var desc: String
         if let descriptable = value as? CustomDebugStringConvertible {
-            desc = descriptable.debugDescription
+            return descriptable.debugDescription
         } else {
-            desc = "\(value)"
+            return "\(value)"
         }
-        return "LinkedListElement: " + desc
     }
 }
 
@@ -223,25 +219,28 @@ public struct LinkedListGenerator<T>: GeneratorType {
 }
 
 extension LinkedList: CustomStringConvertible, CustomDebugStringConvertible {
-    public var description: String {
-        var desc = "LinkedList = \(self.count) items {"
+    /// Returns the description of all the elements calling the `descriptor` of each element
+    func listDescription(descriptor: (LinkedListElement<T>) -> String) -> String {
+        var desc = "["
         var element = linkedFront
-        while element != nil {
-            desc += "    " + element!.description
+        if element != nil {
+            desc += descriptor(element!)
             element = element!.back
         }
-        desc += "}"
+        while element != nil {
+            desc += " " + descriptor(element!)
+            element = element!.back
+        }
+        desc += "]"
         return desc
     }
+    
+    public var description: String {
+        return listDescription{ $0.description }
+    }
+    
     public var debugDescription: String {
-        var desc = "LinkedList = \(self.count) items {"
-        var element = linkedFront
-        while element != nil {
-            desc += "    " + element!.debugDescription
-            element = element!.back
-        }
-        desc += "}"
-        return desc
+        return "LinkedList<\(T.self)> \(self.count) items: " + listDescription{ $0.debugDescription }
     }
 }
 
