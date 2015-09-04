@@ -104,6 +104,7 @@ public struct CircularArrayDeque<T>: DequeType {
     }
 }
 
+
 /**
     Make CircularArrayDeque iterable.
 */
@@ -130,6 +131,16 @@ extension CircularArrayDeque: MutableCollectionType {
     
     public func generate() -> CircularArrayGenerator<T> {
         return delegate.generate()
+    }
+}
+
+
+extension CircularArrayDeque: CustomStringConvertible, CustomDebugStringConvertible {
+    public var description: String {
+        return delegate.description
+    }
+    public var debugDescription: String {
+        return delegate.debugDescription
     }
 }
 
@@ -239,5 +250,14 @@ extension LinkedListDeque: MutableCollectionType {
     
     public func generate() -> LinkedListGenerator<T> {
         return delegate.generate()
+    }
+}
+
+extension LinkedListDeque: CustomStringConvertible, CustomDebugStringConvertible {
+    public var description: String {
+        return delegate.description
+    }
+    public var debugDescription: String {
+        return delegate.debugDescription
     }
 }

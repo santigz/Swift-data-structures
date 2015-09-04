@@ -121,6 +121,15 @@ extension CircularArrayQueue: MutableCollectionType {
     }
 }
 
+extension CircularArrayQueue: CustomStringConvertible, CustomDebugStringConvertible {
+    public var description: String {
+        return delegate.description
+    }
+    public var debugDescription: String {
+        return delegate.debugDescription
+    }
+}
+
 
 /**
     Implementation of a queue as a circular array. The whole implementation is delegated to `LinkedList`. We do not inherit from it to avoid exposing its whole implementation as a safety mechanism (queues are not expected to allow `pushFront()` or `popBack()`).
@@ -215,5 +224,14 @@ extension LinkedListQueue: MutableCollectionType {
     
     public func generate() -> LinkedListGenerator<T> {
         return delegate.generate()
+    }
+}
+
+extension LinkedListQueue: CustomStringConvertible, CustomDebugStringConvertible {
+    public var description: String {
+        return delegate.description
+    }
+    public var debugDescription: String {
+        return delegate.debugDescription
     }
 }
