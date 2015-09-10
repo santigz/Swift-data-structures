@@ -9,7 +9,7 @@ import Foundation
 /**
     Should be only visible inside LinkedList.
  */
-class LinkedListElement<T> {
+class LinkedListElement<T>: NonObjectiveCBase {
     var value: T
     var back: LinkedListElement<T>? = nil
     
@@ -45,13 +45,34 @@ extension LinkedListElement: CustomStringConvertible, CustomDebugStringConvertib
 }
 
 /**
-    LinkedList implementation. 
+    LinkedList implementation.
 */
 public struct LinkedList<T>: DoubleEndedContainer {
     private var linkedFront: LinkedListElement<T>? = nil
     private var linkedBack: LinkedListElement<T>? = nil
     
     public private(set) var count = 0
+    
+    init() {}
+    
+    init(list: LinkedList<T>) {
+        for element in list {
+            self.pushBack(element)
+        }
+    }
+    
+    public func copy() -> LinkedList<T> {
+        return LinkedList(list: self)
+    }
+    
+    /// Perform copy-on-write
+    mutating func copyOnWriteIfNeeded() {
+        // Using linkedFront or linkedBack should be equivalent
+        if linkedFront == nil || isUniquelyReferenced(&linkedFront!) {
+            return
+        }
+        self = self.copy()
+    }
     
     /// Whether the linked list is empty
     public var isEmpty: Bool {
@@ -64,6 +85,7 @@ public struct LinkedList<T>: DoubleEndedContainer {
             return linkedBack?.value
         }
         set {
+            copyOnWriteIfNeeded()
             if let lback = linkedBack {
                 if let value = newValue {
                     // Replace the element
@@ -85,6 +107,7 @@ public struct LinkedList<T>: DoubleEndedContainer {
             return linkedFront?.value
         }
         set {
+            copyOnWriteIfNeeded()
             if let lfront = linkedFront {
                 if let value = newValue {
                     // Replace the element
@@ -103,6 +126,7 @@ public struct LinkedList<T>: DoubleEndedContainer {
     /// Insert a new element to the back
     /// - Complexity: O(1)
     public mutating func pushBack(item: T) {
+        copyOnWriteIfNeeded()
         let newBack = LinkedListElement<T>(value: item, back: nil, front: linkedBack)
         if linkedFront == nil {
             linkedFront = newBack
@@ -114,6 +138,7 @@ public struct LinkedList<T>: DoubleEndedContainer {
     
     /// Insert a new element to the front. Complexity: O(1)
     public mutating func pushFront(item: T) {
+        copyOnWriteIfNeeded()
         let newTail = LinkedListElement<T>(value: item, back: linkedFront, front: nil)
         if linkedBack == nil {
             linkedBack = newTail
@@ -125,6 +150,7 @@ public struct LinkedList<T>: DoubleEndedContainer {
     
     /// Remove the element at the back if any and return it. Complexity: O(1)
     public mutating func popBack() -> T? {
+        copyOnWriteIfNeeded()
         if isEmpty {
             return nil
         }
@@ -140,6 +166,7 @@ public struct LinkedList<T>: DoubleEndedContainer {
     
     /// Remove the element at the front if any and return it. Complexity: O(1)
     public mutating func popFront() -> T? {
+        copyOnWriteIfNeeded()
         if isEmpty {
             return nil
         }
@@ -155,6 +182,7 @@ public struct LinkedList<T>: DoubleEndedContainer {
     
     /// Remove all the elements of the linked list
     public mutating func removeAll() {
+        copyOnWriteIfNeeded()
         // All is removed in cascade because LinkedListElement.front is weak
         linkedFront = nil
         linkedBack = nil
@@ -193,6 +221,7 @@ extension LinkedList: MutableCollectionType {
             return element(position).value
         }
         set {
+            copyOnWriteIfNeeded()
             element(position).value = newValue
         }
     }
