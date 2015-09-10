@@ -10,38 +10,9 @@ import XCTest
 
 class CircularArrayTests: XCTestCase {
     
-    // Size of the arrays for testing
-    let testLength = 100
-    
-    override func setUp() {
-        super.setUp()
-        XCTAssert(testLength > 2, "lengthTest is too small for testing")
-    }
-    
     func testCircularArray() {
-        var circarray = CircularArray<Int>(capacity: testLength)
-        XCTAssertNotNil(circarray.isFull)
-        XCTAssertEqual(circarray.capacity, testLength)
-        
-        testDoubleEndedContainer(&circarray)
-        
-        // Other CircularArray tests
-        for i in 1...testLength {
-            circarray.pushBack(i)
-        }
-        
-        var i = 1
-        for element in circarray {
-            XCTAssertEqual(element, i, "Bad CircularArray element while looping")
-            ++i
-        }
-        
-        let pos = testLength / 2
-        circarray[pos] = 34
-        XCTAssert(circarray[pos] == 34, "CircularArray subscript failed")
-        
-        XCTAssert(circarray.isFull)
-        XCTAssertEqual(circarray.capacity, testLength)
+        let circarray = CircularArray<Int>(capacity: 100)
+        testDeque(circarray, length: 100)
     }
     
     func testCircularArrayPerformance() {
@@ -56,6 +27,5 @@ class CircularArrayTests: XCTestCase {
             }
         }
     }
-
 
 }
