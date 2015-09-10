@@ -227,7 +227,7 @@ extension CircularArray: MutableCollectionType {
 
 
 /**
-This class is used to make CircularArray subscriptable.
+    This class is used to make CircularArray subscriptable.
 */
 public struct CircularArrayGenerator<T>: GeneratorType {
     /// Array with the sub-arrays as slices of the elements. Everything must be in reverse order for efficiency
