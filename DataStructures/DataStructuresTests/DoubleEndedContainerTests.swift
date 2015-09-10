@@ -6,9 +6,6 @@
 
 import XCTest
 
-// Size of the arrays for testing
-let testLength = 100
-
 /// Test a container that should be empty
 func testEmptyContainer<T: Container where T.Generator.Element == Int>(container: T) {
     XCTAssert(container.isEmpty)
@@ -41,43 +38,4 @@ func testSubscript<T: Container where T.Generator.Element == Int>(var container:
 func testRemoveAll<T: Container where T.Generator.Element == Int>(inout container: T) {
     container.removeAll()
     testEmptyContainer(container)
-}
-
-/**
-    Test a DoubleEndedContainer with Int type.
-    The container should be empty at start and will be empty at end.
- */
-func testDoubleEndedContainer<T: DoubleEndedContainer where T.Generator.Element == Int>(inout container: T) {
-    testEmptyContainer(container)
-    
-    // Try all combinations of push/pop back/front
-    testPushBack(&container)
-    testSubscript(container)
-    testPopBack(&container)
-    
-    testPushBack(&container)
-    testSubscript(container)
-    testPopFront(&container)
-    
-    testPushFront(&container)
-    testSubscript(container)
-    testPopBack(&container)
-    
-    testPushFront(&container)
-    testSubscript(container)
-    testPopFront(&container)
-    
-    testRemoveAll(&container)
-    
-    testEmptyContainer(container)
-}
-
-
-class DECTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        XCTAssert(testLength > 2, "lengthTest is too small for testing")
-    }
-    
 }
