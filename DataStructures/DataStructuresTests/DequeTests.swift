@@ -44,6 +44,9 @@ func testEmptyDequeBack<T: DequeType where T.Generator.Element == Int>(var deque
 func testEmptyDequeFront<T: DequeType where T.Generator.Element == Int>(var deque: T) {
     XCTAssert(deque.isEmpty, "This test requires an empty container")
     
+    XCTAssertNil(deque.back)
+    XCTAssertNil(deque.front)
+    
     // Assign nil to an empty front
     testEmptyDeque(deque)
     deque.front = nil
@@ -67,38 +70,80 @@ func testEmptyDequeFront<T: DequeType where T.Generator.Element == Int>(var dequ
 /// - Requires: `!deque.isEmpty`
 func testFilledDequeBack<T: DequeType where T.Generator.Element == Int>(var deque: T) {
     XCTAssertFalse(deque.isEmpty, "This test requires a container with contents")
+    XCTAssert(deque.count > 1, "This test requires more than one element inserted")
+    
+    XCTAssertNotNil(deque.back)
+    XCTAssertNotNil(deque.front)
+    
+    // Correspondance with subscripts
+    XCTAssertEqual(deque.front, deque[0])
+    XCTAssertEqual(deque.back, deque[deque.count - 1])
     
     let prevCount = deque.count
+    let prevBack = deque[deque.count - 2]
+    let front = deque.front
     let back = deque.back
-    let testValue = 1928
+    let testValue1 = 1928
+    let testValue2 = 21637
     
     deque.back = nil
+    XCTAssertEqual(deque.back, prevBack)
+    XCTAssertEqual(deque.front, front)
     XCTAssertEqual(deque.count, prevCount - 1)
-    deque.pushBack(testValue)
-    XCTAssertEqual(deque.back, testValue)
+    XCTAssertEqual(deque.back, deque[deque.count - 1])
+    
+    deque.pushBack(testValue1)
+    XCTAssertEqual(deque.back, testValue1)
+    XCTAssertEqual(deque.count, prevCount)
+    
+    deque.back = testValue2
+    XCTAssertEqual(deque.count, prevCount)
+    XCTAssertEqual(deque.back, testValue2)
+    XCTAssertEqual(testValue2, deque[deque.count - 1])
     
     deque.back = back
     XCTAssertEqual(deque.back, back)
     XCTAssertEqual(deque.count, prevCount)
+    XCTAssertEqual(deque.front, front)
 }
 
 /// Test `deque.front` when the container is not empty
 /// - Requires: `!deque.isEmpty`
 func testFilledDequeFront<T: DequeType where T.Generator.Element == Int>(var deque: T) {
     XCTAssertFalse(deque.isEmpty, "This test requires a container with contents")
+    XCTAssert(deque.count > 1, "This test requires more than one element inserted")
+    
+    XCTAssertNotNil(deque.back)
+    XCTAssertNotNil(deque.front)
+    
+    // Correspondance with subscripts
+    XCTAssertEqual(deque.front, deque[0])
+    XCTAssertEqual(deque.back, deque[deque.count - 1])
     
     let prevCount = deque.count
     let front = deque.front
+    let back = deque.back
     let testValue = 29184
     
     deque.front = nil
+    XCTAssertNotNil(deque.front)
     XCTAssertEqual(deque.count, prevCount - 1)
+    XCTAssertEqual(deque.back, back)
+    XCTAssertEqual(deque.front, deque[0])
+    XCTAssertEqual(deque.count, prevCount - 1)
+    
     deque.pushFront(testValue)
     XCTAssertEqual(deque.front, testValue)
     
     deque.front = front
     XCTAssertEqual(deque.front, front)
     XCTAssertEqual(deque.count, prevCount)
+    XCTAssertEqual(deque.back, back)
+    
+    deque[deque.count - 1] = testValue
+    XCTAssertEqual(deque.back, testValue, "Setting a new value in the last subscript should be reflected in the back")
+    deque[0] = testValue
+    XCTAssertEqual(deque.front, testValue, "Setting a new value in the first subscript should be reflected in the front")
 }
 
 /// Test a Deque that is not empty
@@ -156,6 +201,8 @@ func testPushFront<T: DequeType where T.Generator.Element == Int>(inout deque: T
         XCTAssertNotNil(deque.isEmpty, "Container should not be empty")
         XCTAssertEqual(deque.back, length, "Bad back")
         XCTAssertEqual(deque.front, element, "Bad front")
+        XCTAssertEqual(deque[0], deque.front)
+        XCTAssertEqual(deque[deque.count - 1], deque.back)
     }
     XCTAssertFalse(deque.isEmpty)
     XCTAssertEqual(deque.count, length)
@@ -170,8 +217,10 @@ func testPopBack<T: DequeType where T.Generator.Element == Int>(inout deque: T) 
         XCTAssertEqual(popped!, element, "Bad popFront() element")
         XCTAssertEqual(deque.count, element - 1, "Container should have \(element) elements")
         XCTAssertNotNil(deque.isEmpty, "Container should not be empty")
-        XCTAssertEqual(deque.back, element - 1, "Bad back: \(deque.back)")
+        XCTAssertEqual(deque.back, element - 1, "Bad back: \(deque.back) for element \(element)")
         XCTAssertEqual(deque.front, 1, "Bad front")
+        XCTAssertEqual(deque[0], deque.front)
+        XCTAssertEqual(deque[deque.count - 1], deque.back)
     }
     XCTAssertEqual(deque.popBack(), 1, "Bad popFront() element")
     XCTAssertNil(deque.popBack())
@@ -186,21 +235,43 @@ func testDeque<T: DequeType where T.Generator.Element == Int>(var deque: T, leng
     testEmptyDequeBack(deque)
     testEmptyDequeFront(deque)
     
-    testPushFront(&deque)
-    testFilledDeque(deque)
-    testFilledDequeBack(deque)
-    testFilledDequeFront(deque)
-    testSubscript(deque)
+    let filledDequeTests = {(deque: T) in
+        testFilledDeque(deque)
+        testFilledDequeBack(deque)
+        testFilledDequeFront(deque)
+        testSubscript(deque)
+    }
+    
+    // Try all combinations of push/pop back/front
+    testPushFront(&deque, length: length)
+    filledDequeTests(deque)
     testPopBack(&deque)
+    testEmptyDeque(deque)
+    
+    testPushFront(&deque, length: length)
+    filledDequeTests(deque)
+    testPopFront(&deque)
+    testEmptyDeque(deque)
+    
+    testPushBack(&deque, length: length)
+    filledDequeTests(deque)
+    testPopBack(&deque)
+    testEmptyDeque(deque)
+    
+    testPushBack(&deque, length: length)
+    filledDequeTests(deque)
+    testPopFront(&deque)
     testEmptyDeque(deque)
 }
 
 
 class DequeTests: XCTestCase {
-
+    
     func testCircularArrayDeque() {
-        let deque = CircularArrayDeque<Int>(capacity: testLength)
-        testDeque(deque)
+        for capacity in [100, 500, 1000] {
+            let deque = CircularArrayDeque<Int>(capacity: capacity)
+            testDeque(deque, length: 100)
+        }
     }
     
     func testLinkedListDeque() {
