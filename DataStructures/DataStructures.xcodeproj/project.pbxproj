@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6C14CA0D1B8F64B600303343 /* DequeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C14CA0C1B8F64B600303343 /* DequeTests.swift */; };
 		6C1586E21B753E2B00BFF84B /* DataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C1586D61B753E2B00BFF84B /* DataStructures.framework */; };
-		6C1586E91B753E2B00BFF84B /* DECTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1586E81B753E2B00BFF84B /* DECTests.swift */; };
+		6C1586E91B753E2B00BFF84B /* DoubleEndedContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1586E81B753E2B00BFF84B /* DoubleEndedContainerTests.swift */; };
 		6CC71EF61B8B331200B00903 /* CircularArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EEF1B8B331200B00903 /* CircularArray.swift */; };
 		6CC71EF71B8B331200B00903 /* CircularArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EEF1B8B331200B00903 /* CircularArray.swift */; };
 		6CC71EF81B8B331200B00903 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC71EF01B8B331200B00903 /* Container.swift */; };
@@ -43,7 +43,7 @@
 		6C1586D61B753E2B00BFF84B /* DataStructures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataStructures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1586E11B753E2B00BFF84B /* DataStructuresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataStructuresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1586E71B753E2B00BFF84B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6C1586E81B753E2B00BFF84B /* DECTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DECTests.swift; sourceTree = "<group>"; };
+		6C1586E81B753E2B00BFF84B /* DoubleEndedContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleEndedContainerTests.swift; sourceTree = "<group>"; };
 		6CC71EEF1B8B331200B00903 /* CircularArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularArray.swift; path = DataStructures/CircularArray.swift; sourceTree = SOURCE_ROOT; };
 		6CC71EF01B8B331200B00903 /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Container.swift; path = DataStructures/Container.swift; sourceTree = SOURCE_ROOT; };
 		6CC71EF11B8B331200B00903 /* DataStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataStructures.h; path = DataStructures/DataStructures.h; sourceTree = SOURCE_ROOT; };
@@ -120,7 +120,7 @@
 		6C1586E51B753E2B00BFF84B /* DataStructuresTests */ = {
 			isa = PBXGroup;
 			children = (
-				6C1586E81B753E2B00BFF84B /* DECTests.swift */,
+				6C1586E81B753E2B00BFF84B /* DoubleEndedContainerTests.swift */,
 				6CC71F061B8DDE7C00B00903 /* CircularArrayTests.swift */,
 				6CC71F0A1B8DE7B700B00903 /* QueueTests.swift */,
 				6C14CA0C1B8F64B600303343 /* DequeTests.swift */,
@@ -264,7 +264,7 @@
 				6CC71F091B8DE65300B00903 /* LinkedListTests.swift in Sources */,
 				6CC71EF71B8B331200B00903 /* CircularArray.swift in Sources */,
 				6CC71F071B8DDE7C00B00903 /* CircularArrayTests.swift in Sources */,
-				6C1586E91B753E2B00BFF84B /* DECTests.swift in Sources */,
+				6C1586E91B753E2B00BFF84B /* DoubleEndedContainerTests.swift in Sources */,
 				6CC71F001B8B331200B00903 /* Queue.swift in Sources */,
 				6CC71EF91B8B331200B00903 /* Container.swift in Sources */,
 				6CC71F0B1B8DE7B700B00903 /* QueueTests.swift in Sources */,
