@@ -145,24 +145,24 @@ func testPushFrontOnEnds<T: DequeType where T.Generator.Element == Int>(var dequ
     testEmptyDeque(deque)
 }
 
-/// `pushFront()` in a deque to insert the data: (front) 1...testLength (back)
+/// `pushFront()` in a deque to insert the data: (front) 1...length (back)
 /// - Requires: `deque.isEmpty`
-func testPushFront<T: DequeType where T.Generator.Element == Int>(inout deque: T) {
+func testPushFront<T: DequeType where T.Generator.Element == Int>(inout deque: T, length: Int) {
     testEmptyDeque(deque)
-    for element in Array((1...testLength).reverse()) {
+    for element in Array((1...length).reverse()) {
         deque.pushFront(element)
-        let count = testLength - element + 1
+        let count = length - element + 1
         XCTAssertEqual(deque.count, count, "Container should have \(count) elements")
         XCTAssertNotNil(deque.isEmpty, "Container should not be empty")
-        XCTAssertEqual(deque.back, testLength, "Bad back")
+        XCTAssertEqual(deque.back, length, "Bad back")
         XCTAssertEqual(deque.front, element, "Bad front")
     }
     XCTAssertFalse(deque.isEmpty)
-    XCTAssertEqual(deque.count, testLength)
+    XCTAssertEqual(deque.count, length)
     testFilledDeque(deque)
 }
 
-/// `popBack()` from a deque with the data: (front) 1...testLength (back)
+/// `popBack()` from a deque with the data: (front) 1...deque.count (back)
 func testPopBack<T: DequeType where T.Generator.Element == Int>(inout deque: T) {
     testFilledDeque(deque)
     for element in Array((2...deque.count).reverse()) {
@@ -178,10 +178,10 @@ func testPopBack<T: DequeType where T.Generator.Element == Int>(inout deque: T) 
     testEmptyDeque(deque)
 }
 
-func testDeque<T: DequeType where T.Generator.Element == Int>(var deque: T) {
+func testDeque<T: DequeType where T.Generator.Element == Int>(var deque: T, length: Int) {
     XCTAssert(deque.isEmpty, "This test requires an empty container")
     
-    testQueue(deque)
+    testQueue(deque, length: length)
     
     testEmptyDequeBack(deque)
     testEmptyDequeFront(deque)
@@ -205,7 +205,7 @@ class DequeTests: XCTestCase {
     
     func testLinkedListDeque() {
         let deque = LinkedListDeque<Int>()
-        testDeque(deque)
+        testDeque(deque, length: 100)
     }
     
 }

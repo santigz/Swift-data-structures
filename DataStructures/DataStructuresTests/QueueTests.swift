@@ -27,51 +27,52 @@ func testFilledQueue<T: QueueType where T.Generator.Element == Int>(var queue: T
     XCTAssertEqual(queue.front, queue.popFront())
 }
 
-/// `pushBack()` in a container to insert the data: (front) 1...testLength (back)
-func testPushBack<T: QueueType where T.Generator.Element == Int>(inout queue: T) {
+/// `pushBack()` in a container to insert the data: (front) 1...length (back)
+func testPushBack<T: QueueType where T.Generator.Element == Int>(inout queue: T, length: Int) {
     testEmptyQueue(queue)
-    for element in 1...testLength {
+    for element in 1...length {
         queue.pushBack(element)
         XCTAssertEqual(queue.count, element, "Container should have \(element) elements")
         XCTAssertNotNil(queue.isEmpty, "Container should not be empty")
         XCTAssertEqual(queue.back, element, "Bad back")
         XCTAssertEqual(queue.front, 1, "Bad front")
     }
-    XCTAssertEqual(queue.count, testLength)
+    XCTAssertEqual(queue.count, length)
     testFilledQueue(queue)
 }
 
-/// `popFront()` from a queue with the data: (front) 1...testLength (back)
+/// `popFront()` from a queue with the data: (front) 1...queue.count (back)
 func testPopFront<T: QueueType where T.Generator.Element == Int>(inout queue: T) {
     testFilledQueue(queue)
-    for element in 1...(testLength - 1) {
+    let count = queue.count
+    for element in 1...(count - 1) {
         let popped = queue.popFront()
         XCTAssertEqual(popped, element, "Bad popFront() element")
-        let revelement = testLength - element
+        let revelement = count - element
         XCTAssertEqual(queue.count, revelement, "Container should have \(revelement) elements")
         XCTAssertNotNil(queue.isEmpty, "Container should not be empty")
-        XCTAssertEqual(queue.back, testLength, "Bad back")
+        XCTAssertEqual(queue.back, count, "Bad back")
         XCTAssertEqual(queue.front, element + 1, "Bad front")
     }
-    XCTAssertEqual(queue.popFront(), testLength, "Bad popFront() element")
+    XCTAssertEqual(queue.popFront(), count, "Bad popFront() element")
     XCTAssertNil(queue.popFront())
     testEmptyQueue(queue)
 }
 
-func testQueue<T: QueueType where T.Generator.Element == Int>(var queue: T) {
+func testQueue<T: QueueType where T.Generator.Element == Int>(var queue: T, length: Int) {
     XCTAssert(queue.isEmpty, "This test requires an empty container")
     
     // Test push, pop and subscript
     testEmptyQueue(queue)
-    testPushBack(&queue)
+    testPushBack(&queue, length: length)
     testFilledQueue(queue)
     testSubscript(queue)
     testPopFront(&queue)
     testEmptyQueue(queue)
     
-    // Test removeAll
+    // Test removeAll on empty and filled queue
     testRemoveAll(&queue)
-    testPushBack(&queue)
+    testPushBack(&queue, length: length)
     testRemoveAll(&queue)
     testEmptyQueue(queue)
 }
@@ -79,13 +80,13 @@ func testQueue<T: QueueType where T.Generator.Element == Int>(var queue: T) {
 class QueueTests: XCTestCase {
     
     func testCircularArrayQueue() {
-        let queue = CircularArrayQueue<Int>(capacity: testLength)
-        testQueue(queue)
+        let queue = CircularArrayQueue<Int>(capacity: 100)
+        testQueue(queue, length: 100)
     }
 
     func testLinkedListQueue() {
         let queue = LinkedListQueue<Int>()
-        testQueue(queue)
+        testQueue(queue, length: 100)
     }
     
 }

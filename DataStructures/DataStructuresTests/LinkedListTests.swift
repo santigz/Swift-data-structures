@@ -34,8 +34,8 @@ struct StructElement: Initiable {
 class LinkedListTests: XCTestCase {
     
     func testLinkedList() {
-        var llist = LinkedList<Int>()
-        testDoubleEndedContainer(&llist)
+        let llist = LinkedList<Int>()
+        testDeque(llist, length: 100)
     }
     
     func testBack() {
@@ -45,40 +45,46 @@ class LinkedListTests: XCTestCase {
         
         testEmptyDequeBack(llist)
         testEmptyDequeFront(llist)
-        testPushBack(&llist)
+        testPushBack(&llist, length: 100)
         testFilledDeque(llist)
         testFilledDequeBack(llist)
         testFilledDequeFront(llist)
     }
     
-    func removeAllTest<T: Initiable>(_: T) {
-        // Test that all objects are deinitialized on removeAll()
-        // We only have the input argument to know the type of elements to push
-        var llist = LinkedList<T>()
+    /// Test the (de)initialization of elements for class elements
+    func testClassElements() {
+        let length = 100
+        var llist = LinkedList<ClassElement>()
         ClassElement.nInit = 0
         ClassElement.nDeinit = 0
-        for _ in 1...testLength {
-            llist.pushBack(T())
+        for _ in 1...length {
+            llist.pushBack(ClassElement())
         }
-        
         llist.removeAll()
-        XCTAssertEqual(ClassElement.nInit, testLength, "Wrong number of initializations")
-        XCTAssertEqual(ClassElement.nDeinit, testLength, "Wrong number of deinitializations")
+        XCTAssertEqual(ClassElement.nInit, length, "Wrong number of initializations")
+        XCTAssertEqual(ClassElement.nDeinit, length, "Wrong number of deinitializations")
     }
     
-    func testRemoveAll() {
-        
-        removeAllTest(ClassElement())
-        
+    /// Test the initialization of elements for struct elements
+    func testStructElements() {
+        let length = 100
+        var llist = LinkedList<StructElement>()
+        StructElement.nInit = 0
+        for _ in 1...length {
+            llist.pushBack(StructElement())
+        }
+        llist.removeAll()
+        XCTAssertEqual(StructElement.nInit, length, "Wrong number of initializations")
     }
     
     func testLinkedListPerformance() {
         self.measureBlock() {
+            let length = 100
             var llist = LinkedList<Int>()
-            for _ in 1...testLength {
+            for _ in 1...length {
                 llist.pushFront(1)
             }
-            for _ in 1...testLength {
+            for _ in 1...length {
                 llist.popBack()
             }
         }
